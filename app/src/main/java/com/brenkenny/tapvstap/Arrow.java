@@ -13,7 +13,7 @@ package com.brenkenny.tapvstap;
         private int speed;
 
         // Constructor
-        public Arrow(Context context) {
+        public Arrow(Context context, int screenX, int screenY) {
             x = 50;
             y = 50;
             speed = 10;

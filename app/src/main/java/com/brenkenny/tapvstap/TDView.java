@@ -25,6 +25,10 @@ import java.util.Random;
 
 public class TDView extends SurfaceView implements Runnable {
 
+    private int circlex;
+    private int circley;
+
+
     private boolean p1BluePressed;
     private boolean p1RedPressed;
     private boolean p1GreenPressed;
@@ -39,6 +43,8 @@ public class TDView extends SurfaceView implements Runnable {
 
     private Arrow arrow;
 
+    ArrayList<Arrow> arrowList = new ArrayList<Arrow>();
+
     private Context context;
 
     private int screenX;
@@ -51,6 +57,7 @@ public class TDView extends SurfaceView implements Runnable {
 
     // For drawing
     private Paint paint;
+    private Paint paintRed;
     private Canvas canvas;
     private SurfaceHolder ourHolder;
 
@@ -62,7 +69,8 @@ public class TDView extends SurfaceView implements Runnable {
         super(context);
         this.context  = context;
 
-
+        circlex = 10000;
+        circley = 200;
 
         screenX = x;
         screenY = y;
@@ -70,8 +78,9 @@ public class TDView extends SurfaceView implements Runnable {
         // Initialize our drawing objects
         ourHolder = getHolder();
         paint = new Paint();
+        paintRed = new Paint();
 
-        arrow = new Arrow(context);
+        arrow = new Arrow(context, screenX, screenY);
 
         // Load fastest time
         prefs = context.getSharedPreferences("HiScores", context.MODE_PRIVATE);
@@ -100,6 +109,9 @@ public class TDView extends SurfaceView implements Runnable {
 
         arrow.update();
 
+        circlex = circlex+35;
+
+
     }
 
     private void draw() {
@@ -114,6 +126,12 @@ public class TDView extends SurfaceView implements Runnable {
             // For debugging
             // Switch to white pixels
             paint.setColor(Color.argb(255, 255, 255, 255));
+
+            arrow = new Arrow(context, circlex, circley);
+
+            paintRed.setColor(Color.argb(255, 0, 0, 255));
+            canvas.drawCircle(circlex, circley, 100, paintRed);
+
 
 
             paint.setColor(Color.argb(255, 0, 0, 255));
@@ -142,11 +160,10 @@ public class TDView extends SurfaceView implements Runnable {
 
             //Player 1 Pressed
             if (p1BluePressed == true){
-                paint.setColor(Color.argb(255, 0, 0, 255));
-                canvas.drawCircle(700, 500, 400, paint);
-
-                //CHange
-
+                //paint.setColor(Color.argb(255, 0, 0, 255));
+                //canvas.drawCircle(700, 500, 400, paint);
+                circlex = 200;
+                //arrow = new Arrow(context, screenX, screenY);
 
             }
 
