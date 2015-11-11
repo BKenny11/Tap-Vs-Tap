@@ -25,9 +25,17 @@ import java.util.Random;
 
 public class TDView extends SurfaceView implements Runnable {
 
-    private int circlex;
-    private int circley;
+    private int p1BlueCircleX;
+    private int p1RedCircleX;
+    private int p1GreenCircleX;
+    private int p1YellowCircleX;
+    private int p1OrangeCircleX;
 
+    private int p2BlueCircleX;
+    private int p2RedCircleX;
+    private int p2GreenCircleX;
+    private int p2YellowCircleX;
+    private int p2OrangeCircleX;
 
     private boolean p1BluePressed;
     private boolean p1RedPressed;
@@ -50,14 +58,11 @@ public class TDView extends SurfaceView implements Runnable {
     private int screenX;
     private int screenY;
 
-
-
     volatile boolean playing;
     Thread gameThread = null;
 
     // For drawing
     private Paint paint;
-    private Paint paintRed;
     private Canvas canvas;
     private SurfaceHolder ourHolder;
 
@@ -69,8 +74,17 @@ public class TDView extends SurfaceView implements Runnable {
         super(context);
         this.context  = context;
 
-        circlex = 10000;
-        circley = 200;
+        p1BlueCircleX = 10000;
+        p1RedCircleX = 10000;
+        p1GreenCircleX = 10000;
+        p1YellowCircleX = 10000;
+        p1OrangeCircleX = 10000;
+
+        p2BlueCircleX = -10000;
+        p2RedCircleX = -10000;
+        p2GreenCircleX = -10000;
+        p2YellowCircleX = -10000;
+        p2OrangeCircleX = -10000;
 
         screenX = x;
         screenY = y;
@@ -78,9 +92,8 @@ public class TDView extends SurfaceView implements Runnable {
         // Initialize our drawing objects
         ourHolder = getHolder();
         paint = new Paint();
-        paintRed = new Paint();
 
-        arrow = new Arrow(context, screenX, screenY);
+        //arrow = new Arrow(context, screenX, screenY);
 
         // Load fastest time
         prefs = context.getSharedPreferences("HiScores", context.MODE_PRIVATE);
@@ -106,12 +119,19 @@ public class TDView extends SurfaceView implements Runnable {
     }
 
     private void update() {
+        //arrow.update();
 
-        arrow.update();
+        p1BlueCircleX += 35;
+        p1RedCircleX += 35;
+        p1GreenCircleX += 35;
+        p1YellowCircleX += 35;
+        p1OrangeCircleX += 35;
 
-        circlex = circlex+35;
-
-
+        p2BlueCircleX -= 35;
+        p2RedCircleX -= 35;
+        p2GreenCircleX -= 35;
+        p2YellowCircleX -= 35;
+        p2OrangeCircleX -= 35;
     }
 
     private void draw() {
@@ -119,90 +139,73 @@ public class TDView extends SurfaceView implements Runnable {
         if (ourHolder.getSurface().isValid()) {
 
             canvas = ourHolder.lockCanvas();
-
             canvas.drawColor(Color.argb(255, 0, 0, 0));
 
-            paint.setColor(Color.argb(255, 255, 255, 255));
+            //arrow = new Arrow(context, circlex, circley);
 
-            arrow = new Arrow(context, circlex, circley);
-
-            paintRed.setColor(Color.argb(255, 0, 0, 255));
-            canvas.drawCircle(circlex, circley, 100, paintRed);
-
-
-
-            paint.setColor(Color.argb(255, 0, 0, 255));
+            paint.setColor(Color.argb(255, 0, 0, 255)); //blue
             canvas.drawCircle(200, 200, 100, paint);
-            paint.setColor(Color.argb(255, 255, 0, 0));
-            canvas.drawCircle(200, 450, 100, paint);
-            paint.setColor(Color.argb(255, 0, 255, 0));
-            canvas.drawCircle(200, 700, 100, paint);
-            paint.setColor(Color.argb(255, 255, 255, 0));
-            canvas.drawCircle(200, 950, 100, paint);
-            paint.setColor(Color.argb(255, 255, 140, 0));
-            canvas.drawCircle(200,1200,100,paint);
-
-
-
-            paint.setColor(Color.argb(255, 0, 0, 255));
             canvas.drawCircle(2300, 200, 100, paint);
-            paint.setColor(Color.argb(255, 255, 0, 0));
+            canvas.drawCircle(p1BlueCircleX, 200, 100, paint);
+            canvas.drawCircle(p2BlueCircleX, 200, 100, paint);
+
+            paint.setColor(Color.argb(255, 255, 0, 0)); //red
+            canvas.drawCircle(200, 450, 100, paint);
             canvas.drawCircle(2300, 450, 100, paint);
-            paint.setColor(Color.argb(255, 0, 255, 0));
+            canvas.drawCircle(p1RedCircleX, 450, 100, paint);
+            canvas.drawCircle(p2RedCircleX, 450, 100, paint);
+
+            paint.setColor(Color.argb(255, 0, 255, 0)); //green
+            canvas.drawCircle(200, 700, 100, paint);
             canvas.drawCircle(2300, 700, 100, paint);
-            paint.setColor(Color.argb(255, 255, 255, 0));
+            canvas.drawCircle(p1GreenCircleX, 700, 100, paint);
+            canvas.drawCircle(p2GreenCircleX, 700, 100, paint);
+
+            paint.setColor(Color.argb(255, 255, 255, 0)); //yellow
+            canvas.drawCircle(200, 950, 100, paint);
             canvas.drawCircle(2300, 950, 100, paint);
-            paint.setColor(Color.argb(255, 255, 140, 0));
-            canvas.drawCircle(2300,1200,100,paint);
+            canvas.drawCircle(p1YellowCircleX, 950, 100, paint);
+            canvas.drawCircle(p2YellowCircleX, 950, 100, paint);
+
+            paint.setColor(Color.argb(255, 255, 140, 0)); //orange
+            canvas.drawCircle(200, 1200, 100, paint);
+            canvas.drawCircle(2300, 1200, 100, paint);
+            canvas.drawCircle(p1OrangeCircleX, 1200, 100, paint);
+            canvas.drawCircle(p2OrangeCircleX, 1200, 100, paint);
 
             //Player 1 Pressed
             if (p1BluePressed == true){
-                circley = 200;
-                circlex = 200;
+                if(p1BlueCircleX > 2500) p1BlueCircleX = 200;
             }
-
             if ( p1RedPressed == true){
-                circlex = 200;
-                circley = 450;
+                if(p1RedCircleX > 2500) p1RedCircleX = 200;
             }
             if ( p1GreenPressed == true){
-                circlex = 200;
-                circley = 700;
+                if(p1GreenCircleX > 2500) p1GreenCircleX = 200;
             }
             if ( p1YellowPressed == true){
-                circlex = 200;
-                circley = 950;
+                if(p1YellowCircleX > 2500) p1YellowCircleX = 200;
             }
             if ( p1OrangePressed == true){
-                circlex = 200;
-                circley = 1200;
+                if(p1OrangeCircleX > 2500) p1OrangeCircleX = 200;
             }
-
 
             //Player 2 Pressed
             if (p2BluePressed == true){
-                paint.setColor(Color.argb(255, 0, 0, 255));
-                canvas.drawCircle(1000,500,400,paint);
+                if(p2BlueCircleX < 0) p2BlueCircleX = 2300;
             }
-
             if ( p2RedPressed == true){
-                paint.setColor(Color.argb(255, 255, 0, 0));
-                canvas.drawCircle(1000,500,400,paint);
+                if(p2RedCircleX < 0) p2RedCircleX = 2300;
             }
             if ( p2GreenPressed == true){
-                paint.setColor(Color.argb(255, 0, 255, 0));
-                canvas.drawCircle(1000,500,400,paint);
+                if(p2GreenCircleX < 0) p2GreenCircleX = 2300;
             }
             if ( p2YellowPressed == true){
-                paint.setColor(Color.argb(255, 255, 255, 0));
-                canvas.drawCircle(1000,500,400,paint);
+                if(p2YellowCircleX < 0) p2YellowCircleX = 2300;
             }
             if ( p2OrangePressed == true){
-                paint.setColor(Color.argb(255, 255, 140, 0));
-                canvas.drawCircle(1000,500,400,paint);
+                if(p2OrangeCircleX < 0) p2OrangeCircleX = 2300;
             }
-
-
 
             // Unlock and draw the scene
             ourHolder.unlockCanvasAndPost(canvas);
@@ -248,7 +251,7 @@ public class TDView extends SurfaceView implements Runnable {
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  100 < motionEvent.getY() && motionEvent.getY() < 300) {
 
                     p1BluePressed = true;
-                    arrow = new Arrow(context,200, 200);
+                    //arrow = new Arrow(context,200, 200);
                     //canvas.drawBitmap(arrow.getBitmap(),screenX,screenY, paint);
                 }
 
