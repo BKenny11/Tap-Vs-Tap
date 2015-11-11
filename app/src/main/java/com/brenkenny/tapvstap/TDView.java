@@ -117,14 +117,11 @@ public class TDView extends SurfaceView implements Runnable {
     private void draw() {
 
         if (ourHolder.getSurface().isValid()) {
-            //First we lock the area of memory we will be drawing to
+
             canvas = ourHolder.lockCanvas();
 
-            // Rub out the last frame
             canvas.drawColor(Color.argb(255, 0, 0, 0));
 
-            // For debugging
-            // Switch to white pixels
             paint.setColor(Color.argb(255, 255, 255, 255));
 
             arrow = new Arrow(context, circlex, circley);
@@ -160,28 +157,25 @@ public class TDView extends SurfaceView implements Runnable {
 
             //Player 1 Pressed
             if (p1BluePressed == true){
-                //paint.setColor(Color.argb(255, 0, 0, 255));
-                //canvas.drawCircle(700, 500, 400, paint);
+                circley = 200;
                 circlex = 200;
-                //arrow = new Arrow(context, screenX, screenY);
-
             }
 
             if ( p1RedPressed == true){
-                paint.setColor(Color.argb(255, 255, 0, 0));
-                canvas.drawCircle(700,500,400,paint);
+                circlex = 200;
+                circley = 450;
             }
             if ( p1GreenPressed == true){
-                paint.setColor(Color.argb(255, 0, 255, 0));
-                canvas.drawCircle(700,500,400,paint);
+                circlex = 200;
+                circley = 700;
             }
             if ( p1YellowPressed == true){
-                paint.setColor(Color.argb(255, 255, 255, 0));
-                canvas.drawCircle(700,500,400,paint);
+                circlex = 200;
+                circley = 950;
             }
             if ( p1OrangePressed == true){
-                paint.setColor(Color.argb(255, 255, 140, 0));
-                canvas.drawCircle(700,500,400,paint);
+                circlex = 200;
+                circley = 1200;
             }
 
 
@@ -254,7 +248,7 @@ public class TDView extends SurfaceView implements Runnable {
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  100 < motionEvent.getY() && motionEvent.getY() < 300) {
 
                     p1BluePressed = true;
-                    //arrow = new Arrow(context);
+                    arrow = new Arrow(context,200, 200);
                     //canvas.drawBitmap(arrow.getBitmap(),screenX,screenY, paint);
                 }
 
