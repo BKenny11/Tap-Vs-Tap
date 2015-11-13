@@ -6,24 +6,16 @@ package com.brenkenny.tapvstap;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 
-public class TDView extends SurfaceView implements Runnable {
+public class GameView extends SurfaceView implements Runnable {
 
     private int p1BlueCircleX;
     private int p1RedCircleX;
@@ -51,7 +43,10 @@ public class TDView extends SurfaceView implements Runnable {
 
     private Arrow arrow;
 
-    ArrayList<Arrow> arrowList = new ArrayList<Arrow>();
+    private p2Arrow p2arrow;
+
+    ArrayList<Arrow> p1ArrowList = new ArrayList<Arrow>();
+    ArrayList<p2Arrow> p2ArrowList = new ArrayList<p2Arrow>();
 
     private Context context;
 
@@ -70,7 +65,7 @@ public class TDView extends SurfaceView implements Runnable {
     private SharedPreferences prefs;
 
 
-    TDView(Context context, int x, int y) {
+    GameView(Context context, int x, int y) {
         super(context);
         this.context  = context;
 
@@ -133,9 +128,13 @@ public class TDView extends SurfaceView implements Runnable {
         p2YellowCircleX -= 35;
         p2OrangeCircleX -= 35;
 
-        for(int i = 0; i < arrowList.size(); i++){
-           Arrow mArrow = arrowList.get(i);
+        for(int i = 0; i < p1ArrowList.size(); i++){
+           Arrow mArrow = p1ArrowList.get(i);
             mArrow.update();
+        }
+        for(int i = 0; i < p2ArrowList.size(); i++){
+            p2Arrow mp2Arrow = p2ArrowList.get(i);
+            mp2Arrow.update();
         }
     }
 
@@ -176,9 +175,14 @@ public class TDView extends SurfaceView implements Runnable {
             canvas.drawCircle(p1OrangeCircleX, 1200, 100, paint);
             canvas.drawCircle(p2OrangeCircleX, 1200, 100, paint);
 
-            for(int i = 0; i < arrowList.size(); i++){
-                Arrow mArrow = arrowList.get(i);
+            for(int i = 0; i < p1ArrowList.size(); i++){
+                Arrow mArrow = p1ArrowList.get(i);
                 canvas.drawBitmap(mArrow.getBitmap(), mArrow.getX(), mArrow.getY(), paint);
+            }
+
+            for(int i = 0; i < p2ArrowList.size(); i++){
+                p2Arrow mp2Arrow = p2ArrowList.get(i);
+                canvas.drawBitmap(mp2Arrow.getBitmap(), mp2Arrow.getX(), mp2Arrow.getY(), paint);
             }
 
 //            //Player 1 Pressed
@@ -262,50 +266,53 @@ public class TDView extends SurfaceView implements Runnable {
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  100 < motionEvent.getY() && motionEvent.getY() < 300) {
 
                     arrow = new Arrow(context, 50, 100, "blue");
-                    arrowList.add(arrow);
+                    p1ArrowList.add(arrow);
                 }
 
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  350 < motionEvent.getY() && motionEvent.getY() < 550) {
 
                     arrow = new Arrow(context, 50, 350, "red");
-                    arrowList.add(arrow);
+                    p1ArrowList.add(arrow);
                 }
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  600 < motionEvent.getY() && motionEvent.getY() < 800) {
 
                     arrow = new Arrow(context, 50, 600, "green");
-                    arrowList.add(arrow);
+                    p1ArrowList.add(arrow);
                 }
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  850 < motionEvent.getY() && motionEvent.getY() < 1050) {
                     arrow = new Arrow(context, 50, 850, "yellow");
-                    arrowList.add(arrow);
+                    p1ArrowList.add(arrow);
                 }
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  1100 < motionEvent.getY() && motionEvent.getY() < 1300) {
                     arrow = new Arrow(context, 50, 1100, "orange");
-                    arrowList.add(arrow);
+                    p1ArrowList.add(arrow);
                 }
 
 
                 //Player 2 Buttons
                 if ( 2200 < motionEvent.getX() && motionEvent.getX() < 2400  &&  100 < motionEvent.getY() && motionEvent.getY() < 300) {
-
-                    p2BluePressed = true;
+                    p2arrow = new p2Arrow(context, 2300, 100, "blue");
+                    p2ArrowList.add(p2arrow);
                 }
 
                 if ( 2200 < motionEvent.getX() && motionEvent.getX() < 2400  &&  350 < motionEvent.getY() && motionEvent.getY() < 550) {
-
-                    p2RedPressed = true;
+                    p2arrow = new p2Arrow(context, 2300, 350, "red");
+                    p2ArrowList.add(p2arrow);
                 }
                 if ( 2200 < motionEvent.getX() && motionEvent.getX() < 2400  &&  600 < motionEvent.getY() && motionEvent.getY() < 800) {
 
-                    p2GreenPressed = true;
+                    p2arrow = new p2Arrow(context, 2300, 600, "green");
+                    p2ArrowList.add(p2arrow);
                 }
                 if ( 2200 < motionEvent.getX() && motionEvent.getX() < 2400  &&  850 < motionEvent.getY() && motionEvent.getY() < 1050) {
 
-                    p2YellowPressed = true;
+                    p2arrow = new p2Arrow(context, 2300, 850, "yellow");
+                    p2ArrowList.add(p2arrow);
                 }
                 if ( 2200 < motionEvent.getX() && motionEvent.getX() < 2400  &&  1100 < motionEvent.getY() && motionEvent.getY() < 1300) {
 
-                    p2OrangePressed = true;
+                    p2arrow = new p2Arrow(context, 2300, 1100, "orange");
+                    p2ArrowList.add(p2arrow);
                 }
 
 

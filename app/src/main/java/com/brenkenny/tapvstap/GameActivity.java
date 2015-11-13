@@ -9,7 +9,7 @@ import android.view.Display;
 public class GameActivity extends Activity {
 
     // Our object to handle the View
-    private TDView gameView;
+    private GameView gameView;
 
     // This is where the "Play" button from HomeActivity sends us
     @Override
@@ -25,7 +25,7 @@ public class GameActivity extends Activity {
         // Create an instance of our Tappy Defender View
         // Also passing in this.
         // Also passing in the screen resolution to the constructor
-        gameView = new TDView(this, size.x, size.y);
+        gameView = new GameView(this, size.x, size.y);
 
         // Make our gameView the view for the Activity
         setContentView(gameView);
