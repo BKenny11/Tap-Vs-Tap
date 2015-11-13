@@ -132,6 +132,11 @@ public class TDView extends SurfaceView implements Runnable {
         p2GreenCircleX -= 35;
         p2YellowCircleX -= 35;
         p2OrangeCircleX -= 35;
+
+        for(int i = 0; i < arrowList.size(); i++){
+           Arrow mArrow = arrowList.get(i);
+            mArrow.update();
+        }
     }
 
     private void draw() {
@@ -140,8 +145,6 @@ public class TDView extends SurfaceView implements Runnable {
 
             canvas = ourHolder.lockCanvas();
             canvas.drawColor(Color.argb(255, 0, 0, 0));
-
-            //arrow = new Arrow(context, circlex, circley);
 
             paint.setColor(Color.argb(255, 0, 0, 255)); //blue
             canvas.drawCircle(200, 200, 100, paint);
@@ -173,22 +176,30 @@ public class TDView extends SurfaceView implements Runnable {
             canvas.drawCircle(p1OrangeCircleX, 1200, 100, paint);
             canvas.drawCircle(p2OrangeCircleX, 1200, 100, paint);
 
-            //Player 1 Pressed
-            if (p1BluePressed == true){
-                if(p1BlueCircleX > 2500) p1BlueCircleX = 200;
+            for(int i = 0; i < arrowList.size(); i++){
+                Arrow mArrow = arrowList.get(i);
+                canvas.drawBitmap(mArrow.getBitmap(), mArrow.getX(), mArrow.getY(), paint);
             }
-            if ( p1RedPressed == true){
-                if(p1RedCircleX > 2500) p1RedCircleX = 200;
-            }
-            if ( p1GreenPressed == true){
-                if(p1GreenCircleX > 2500) p1GreenCircleX = 200;
-            }
-            if ( p1YellowPressed == true){
-                if(p1YellowCircleX > 2500) p1YellowCircleX = 200;
-            }
-            if ( p1OrangePressed == true){
-                if(p1OrangeCircleX > 2500) p1OrangeCircleX = 200;
-            }
+
+//            //Player 1 Pressed
+//            if (p1BluePressed == true) {
+//                if (p1BlueCircleX > 2500) p1BlueCircleX = 200;
+//                //canvas.drawBitmap(arrow.getBitmap(), p1BlueCircleX, 200, paint);
+//
+//            }
+//            if ( p1RedPressed == true){
+//                if(p1RedCircleX > 2500) p1RedCircleX = 200;
+//                canvas.drawBitmap(arrow.getBitmap(), p1RedCircleX, 450, paint);
+//            }
+//            if ( p1GreenPressed == true){
+//                if(p1GreenCircleX > 2500) p1GreenCircleX = 200;
+//            }
+//            if ( p1YellowPressed == true){
+//                if(p1YellowCircleX > 2500) p1YellowCircleX = 200;
+//            }
+//            if ( p1OrangePressed == true){
+//                if(p1OrangeCircleX > 2500) p1OrangeCircleX = 200;
+//            }
 
             //Player 2 Pressed
             if (p2BluePressed == true){
@@ -250,26 +261,27 @@ public class TDView extends SurfaceView implements Runnable {
                 //Player 1 Buttons
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  100 < motionEvent.getY() && motionEvent.getY() < 300) {
 
-                    p1BluePressed = true;
-                    //arrow = new Arrow(context,200, 200);
-                    //canvas.drawBitmap(arrow.getBitmap(),screenX,screenY, paint);
+                    arrow = new Arrow(context, 50, 100, "blue");
+                    arrowList.add(arrow);
                 }
 
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  350 < motionEvent.getY() && motionEvent.getY() < 550) {
 
-                    p1RedPressed = true;
+                    arrow = new Arrow(context, 50, 350, "red");
+                    arrowList.add(arrow);
                 }
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  600 < motionEvent.getY() && motionEvent.getY() < 800) {
 
-                    p1GreenPressed = true;
+                    arrow = new Arrow(context, 50, 600, "green");
+                    arrowList.add(arrow);
                 }
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  850 < motionEvent.getY() && motionEvent.getY() < 1050) {
-
-                    p1YellowPressed = true;
+                    arrow = new Arrow(context, 50, 850, "yellow");
+                    arrowList.add(arrow);
                 }
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  1100 < motionEvent.getY() && motionEvent.getY() < 1300) {
-
-                    p1OrangePressed = true;
+                    arrow = new Arrow(context, 50, 1100, "orange");
+                    arrowList.add(arrow);
                 }
 
 

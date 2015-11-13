@@ -8,17 +8,32 @@ package com.brenkenny.tapvstap;
     import android.graphics.BitmapFactory;
 
     public class Arrow {
+        private Bitmap bitmap2;
         private Bitmap bitmap;
         private int x, y;
         private int speed;
 
         // Constructor
-        public Arrow(Context context, int screenX, int screenY) {
-            x = 50;
-            y = 50;
-            speed = 10;
-            bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.arrow);
+        public Arrow(Context context, int screenX, int screenY, String color) {
+            x = screenX;
+            y = screenY;
+            speed = 20;
 
+            if(color == "blue") {
+                bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.bluearrow);
+            }else if(color == "red") {
+                bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.arrow);
+            }
+            else if(color == "green") {
+                bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.greenarrow);
+            }
+            else if(color == "yellow") {
+                bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.yellowarrow);
+            }
+            else if(color == "orange") {
+                bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.orangearrow);
+            }
+            bitmap = Bitmap.createScaledBitmap(bitmap2, 200, 200, true);
         }
 
         public void update() {
