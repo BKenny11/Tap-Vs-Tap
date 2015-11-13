@@ -41,11 +41,11 @@ public class GameView extends SurfaceView implements Runnable {
     private boolean p2YellowPressed;
     private boolean p2OrangePressed;
 
-    private Arrow arrow;
+    private p1Arrow arrow;
 
     private p2Arrow p2arrow;
 
-    ArrayList<Arrow> p1ArrowList = new ArrayList<Arrow>();
+    ArrayList<p1Arrow> p1ArrowList = new ArrayList<p1Arrow>();
     ArrayList<p2Arrow> p2ArrowList = new ArrayList<p2Arrow>();
 
     private Context context;
@@ -129,8 +129,8 @@ public class GameView extends SurfaceView implements Runnable {
         p2OrangeCircleX -= 35;
 
         for(int i = 0; i < p1ArrowList.size(); i++){
-           Arrow mArrow = p1ArrowList.get(i);
-            mArrow.update();
+           p1Arrow mp1Arrow = p1ArrowList.get(i);
+            mp1Arrow.update();
         }
         for(int i = 0; i < p2ArrowList.size(); i++){
             p2Arrow mp2Arrow = p2ArrowList.get(i);
@@ -175,52 +175,18 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawCircle(p1OrangeCircleX, 1200, 100, paint);
             canvas.drawCircle(p2OrangeCircleX, 1200, 100, paint);
 
+            //Player1 Pressed
             for(int i = 0; i < p1ArrowList.size(); i++){
-                Arrow mArrow = p1ArrowList.get(i);
-                canvas.drawBitmap(mArrow.getBitmap(), mArrow.getX(), mArrow.getY(), paint);
+                p1Arrow mp1Arrow = p1ArrowList.get(i);
+                canvas.drawBitmap(mp1Arrow.getBitmap(), mp1Arrow.getX(), mp1Arrow.getY(), paint);
             }
 
+            //Player2 Pressed
             for(int i = 0; i < p2ArrowList.size(); i++){
                 p2Arrow mp2Arrow = p2ArrowList.get(i);
                 canvas.drawBitmap(mp2Arrow.getBitmap(), mp2Arrow.getX(), mp2Arrow.getY(), paint);
             }
 
-//            //Player 1 Pressed
-//            if (p1BluePressed == true) {
-//                if (p1BlueCircleX > 2500) p1BlueCircleX = 200;
-//                //canvas.drawBitmap(arrow.getBitmap(), p1BlueCircleX, 200, paint);
-//
-//            }
-//            if ( p1RedPressed == true){
-//                if(p1RedCircleX > 2500) p1RedCircleX = 200;
-//                canvas.drawBitmap(arrow.getBitmap(), p1RedCircleX, 450, paint);
-//            }
-//            if ( p1GreenPressed == true){
-//                if(p1GreenCircleX > 2500) p1GreenCircleX = 200;
-//            }
-//            if ( p1YellowPressed == true){
-//                if(p1YellowCircleX > 2500) p1YellowCircleX = 200;
-//            }
-//            if ( p1OrangePressed == true){
-//                if(p1OrangeCircleX > 2500) p1OrangeCircleX = 200;
-//            }
-
-            //Player 2 Pressed
-            if (p2BluePressed == true){
-                if(p2BlueCircleX < 0) p2BlueCircleX = 2300;
-            }
-            if ( p2RedPressed == true){
-                if(p2RedCircleX < 0) p2RedCircleX = 2300;
-            }
-            if ( p2GreenPressed == true){
-                if(p2GreenCircleX < 0) p2GreenCircleX = 2300;
-            }
-            if ( p2YellowPressed == true){
-                if(p2YellowCircleX < 0) p2YellowCircleX = 2300;
-            }
-            if ( p2OrangePressed == true){
-                if(p2OrangeCircleX < 0) p2OrangeCircleX = 2300;
-            }
 
             // Unlock and draw the scene
             ourHolder.unlockCanvasAndPost(canvas);
@@ -265,26 +231,26 @@ public class GameView extends SurfaceView implements Runnable {
                 //Player 1 Buttons
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  100 < motionEvent.getY() && motionEvent.getY() < 300) {
 
-                    arrow = new Arrow(context, 50, 100, "blue");
+                    arrow = new p1Arrow(context, 50, 100, "blue");
                     p1ArrowList.add(arrow);
                 }
 
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  350 < motionEvent.getY() && motionEvent.getY() < 550) {
 
-                    arrow = new Arrow(context, 50, 350, "red");
+                    arrow = new p1Arrow(context, 50, 350, "red");
                     p1ArrowList.add(arrow);
                 }
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  600 < motionEvent.getY() && motionEvent.getY() < 800) {
 
-                    arrow = new Arrow(context, 50, 600, "green");
+                    arrow = new p1Arrow(context, 50, 600, "green");
                     p1ArrowList.add(arrow);
                 }
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  850 < motionEvent.getY() && motionEvent.getY() < 1050) {
-                    arrow = new Arrow(context, 50, 850, "yellow");
+                    arrow = new p1Arrow(context, 50, 850, "yellow");
                     p1ArrowList.add(arrow);
                 }
                 if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  1100 < motionEvent.getY() && motionEvent.getY() < 1300) {
-                    arrow = new Arrow(context, 50, 1100, "orange");
+                    arrow = new p1Arrow(context, 50, 1100, "orange");
                     p1ArrowList.add(arrow);
                 }
 

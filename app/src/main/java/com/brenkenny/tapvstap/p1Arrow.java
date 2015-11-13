@@ -7,14 +7,14 @@ package com.brenkenny.tapvstap;
     import android.graphics.Bitmap;
     import android.graphics.BitmapFactory;
 
-    public class Arrow {
+    public class p1Arrow {
         private Bitmap bitmap2;
         private Bitmap bitmap;
         private int x, y;
         private int speed;
 
         // Constructor
-        public Arrow(Context context, int screenX, int screenY, String color) {
+        public p1Arrow(Context context, int screenX, int screenY, String color) {
             x = screenX;
             y = screenY;
             speed = 20;
@@ -22,7 +22,7 @@ package com.brenkenny.tapvstap;
             if(color == "blue") {
                 bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.bluearrow);
             }else if(color == "red") {
-                bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.arrow);
+                bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.redarrow);
             }
             else if(color == "green") {
                 bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.greenarrow);
