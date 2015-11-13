@@ -78,14 +78,27 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void update() {
 
+
+
         for(int i = 0; i < p1ArrowList.size(); i++){
            p1Arrow mp1Arrow = p1ArrowList.get(i);
             mp1Arrow.update();
+            if (mp1Arrow.getX() > 3000) {
+                p1ArrowList.remove(i);
+            }
+
         }
         for(int i = 0; i < p2ArrowList.size(); i++){
             p2Arrow mp2Arrow = p2ArrowList.get(i);
             mp2Arrow.update();
+
+            if (mp2Arrow.getX() < -400) {
+                p2ArrowList.remove(i);
+            }
         }
+
+
+
 
     }
 
