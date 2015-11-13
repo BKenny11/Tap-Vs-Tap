@@ -17,32 +17,7 @@ import java.util.ArrayList;
 
 public class GameView extends SurfaceView implements Runnable {
 
-    private int p1BlueCircleX;
-    private int p1RedCircleX;
-    private int p1GreenCircleX;
-    private int p1YellowCircleX;
-    private int p1OrangeCircleX;
-
-    private int p2BlueCircleX;
-    private int p2RedCircleX;
-    private int p2GreenCircleX;
-    private int p2YellowCircleX;
-    private int p2OrangeCircleX;
-
-    private boolean p1BluePressed;
-    private boolean p1RedPressed;
-    private boolean p1GreenPressed;
-    private boolean p1YellowPressed;
-    private boolean p1OrangePressed;
-
-    private boolean p2BluePressed;
-    private boolean p2RedPressed;
-    private boolean p2GreenPressed;
-    private boolean p2YellowPressed;
-    private boolean p2OrangePressed;
-
     private p1Arrow arrow;
-
     private p2Arrow p2arrow;
 
     ArrayList<p1Arrow> p1ArrowList = new ArrayList<p1Arrow>();
@@ -68,18 +43,6 @@ public class GameView extends SurfaceView implements Runnable {
     GameView(Context context, int x, int y) {
         super(context);
         this.context  = context;
-
-        p1BlueCircleX = 10000;
-        p1RedCircleX = 10000;
-        p1GreenCircleX = 10000;
-        p1YellowCircleX = 10000;
-        p1OrangeCircleX = 10000;
-
-        p2BlueCircleX = -10000;
-        p2RedCircleX = -10000;
-        p2GreenCircleX = -10000;
-        p2YellowCircleX = -10000;
-        p2OrangeCircleX = -10000;
 
         screenX = x;
         screenY = y;
@@ -114,19 +77,6 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        //arrow.update();
-
-        p1BlueCircleX += 35;
-        p1RedCircleX += 35;
-        p1GreenCircleX += 35;
-        p1YellowCircleX += 35;
-        p1OrangeCircleX += 35;
-
-        p2BlueCircleX -= 35;
-        p2RedCircleX -= 35;
-        p2GreenCircleX -= 35;
-        p2YellowCircleX -= 35;
-        p2OrangeCircleX -= 35;
 
         for(int i = 0; i < p1ArrowList.size(); i++){
            p1Arrow mp1Arrow = p1ArrowList.get(i);
@@ -136,6 +86,7 @@ public class GameView extends SurfaceView implements Runnable {
             p2Arrow mp2Arrow = p2ArrowList.get(i);
             mp2Arrow.update();
         }
+
     }
 
     private void draw() {
@@ -148,32 +99,22 @@ public class GameView extends SurfaceView implements Runnable {
             paint.setColor(Color.argb(255, 0, 0, 255)); //blue
             canvas.drawCircle(200, 200, 100, paint);
             canvas.drawCircle(2300, 200, 100, paint);
-            canvas.drawCircle(p1BlueCircleX, 200, 100, paint);
-            canvas.drawCircle(p2BlueCircleX, 200, 100, paint);
 
             paint.setColor(Color.argb(255, 255, 0, 0)); //red
             canvas.drawCircle(200, 450, 100, paint);
             canvas.drawCircle(2300, 450, 100, paint);
-            canvas.drawCircle(p1RedCircleX, 450, 100, paint);
-            canvas.drawCircle(p2RedCircleX, 450, 100, paint);
 
             paint.setColor(Color.argb(255, 0, 255, 0)); //green
             canvas.drawCircle(200, 700, 100, paint);
             canvas.drawCircle(2300, 700, 100, paint);
-            canvas.drawCircle(p1GreenCircleX, 700, 100, paint);
-            canvas.drawCircle(p2GreenCircleX, 700, 100, paint);
 
             paint.setColor(Color.argb(255, 255, 255, 0)); //yellow
             canvas.drawCircle(200, 950, 100, paint);
             canvas.drawCircle(2300, 950, 100, paint);
-            canvas.drawCircle(p1YellowCircleX, 950, 100, paint);
-            canvas.drawCircle(p2YellowCircleX, 950, 100, paint);
 
             paint.setColor(Color.argb(255, 255, 140, 0)); //orange
             canvas.drawCircle(200, 1200, 100, paint);
             canvas.drawCircle(2300, 1200, 100, paint);
-            canvas.drawCircle(p1OrangeCircleX, 1200, 100, paint);
-            canvas.drawCircle(p2OrangeCircleX, 1200, 100, paint);
 
             //Player1 Pressed
             for(int i = 0; i < p1ArrowList.size(); i++){
@@ -210,17 +151,8 @@ public class GameView extends SurfaceView implements Runnable {
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
             // Has the player lifted there finger up?
             case MotionEvent.ACTION_UP:
-                p1BluePressed = false;
-                p1RedPressed = false;
-                p1GreenPressed = false;
-                p1YellowPressed = false;
-                p1OrangePressed = false;
 
-                p2BluePressed = false;
-                p2RedPressed = false;
-                p2GreenPressed = false;
-                p2YellowPressed = false;
-                p2OrangePressed = false;
+                //Nothing Here Yet
 
                 break;
 
