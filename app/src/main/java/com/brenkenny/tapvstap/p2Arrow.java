@@ -12,12 +12,15 @@ public class p2Arrow {
     private Bitmap bitmap;
     private int x, y;
     private int speed;
+    private int dotSize;
 
     // Constructor
-    public p2Arrow(Context context, int screenX, int screenY, String color) {
+    public p2Arrow(Context context, int screenX, int screenY, String color, int size) {
         x = screenX;
         y = screenY;
         speed = 20;
+
+        dotSize = size*2;
 
         if(color == "blue") {
             bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.p2bluearrow);
@@ -33,7 +36,7 @@ public class p2Arrow {
         else if(color == "orange") {
             bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.p2orangearrow);
         }
-        bitmap = Bitmap.createScaledBitmap(bitmap2, 200, 200, true);
+        bitmap = Bitmap.createScaledBitmap(bitmap2, dotSize, dotSize, true);
     }
 
     public void update() {

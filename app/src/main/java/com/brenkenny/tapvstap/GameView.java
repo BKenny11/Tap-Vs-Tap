@@ -25,8 +25,14 @@ public class GameView extends SurfaceView implements Runnable {
 
     private Context context;
 
+    private int roundCount;
+
     private int screenX;
     private int screenY;
+    private int distBetween;
+    private int dotSize;
+    private int screenMargin;
+
 
     volatile boolean playing;
     Thread gameThread = null;
@@ -47,11 +53,16 @@ public class GameView extends SurfaceView implements Runnable {
         screenX = x;
         screenY = y;
 
+
+
+        distBetween = screenY / 6;
+        dotSize = screenY / 15;
+
+        screenMargin = (int)(dotSize * 1.5);
+
         // Initialize our drawing objects
         ourHolder = getHolder();
         paint = new Paint();
-
-        //arrow = new Arrow(context, screenX, screenY);
 
         // Load fastest time
         prefs = context.getSharedPreferences("HiScores", context.MODE_PRIVATE);
@@ -104,30 +115,34 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void draw() {
 
+
+
         if (ourHolder.getSurface().isValid()) {
 
             canvas = ourHolder.lockCanvas();
             canvas.drawColor(Color.argb(255, 0, 0, 0));
 
+
+
             paint.setColor(Color.argb(255, 0, 0, 255)); //blue
-            canvas.drawCircle(200, 200, 100, paint);
-            canvas.drawCircle(2300, 200, 100, paint);
+            canvas.drawCircle(screenMargin, distBetween, dotSize, paint);
+            canvas.drawCircle(screenX - screenMargin, distBetween, dotSize, paint);
 
             paint.setColor(Color.argb(255, 255, 0, 0)); //red
-            canvas.drawCircle(200, 450, 100, paint);
-            canvas.drawCircle(2300, 450, 100, paint);
+            canvas.drawCircle(screenMargin, distBetween*2, dotSize, paint);
+            canvas.drawCircle(screenX - screenMargin, distBetween * 2, dotSize, paint);
 
             paint.setColor(Color.argb(255, 0, 255, 0)); //green
-            canvas.drawCircle(200, 700, 100, paint);
-            canvas.drawCircle(2300, 700, 100, paint);
+            canvas.drawCircle(screenMargin, distBetween*3, dotSize, paint);
+            canvas.drawCircle(screenX - screenMargin, distBetween*3, dotSize, paint);
 
             paint.setColor(Color.argb(255, 255, 255, 0)); //yellow
-            canvas.drawCircle(200, 950, 100, paint);
-            canvas.drawCircle(2300, 950, 100, paint);
+            canvas.drawCircle(screenMargin, distBetween*4, dotSize, paint);
+            canvas.drawCircle(screenX - screenMargin, distBetween*4, dotSize, paint);
 
             paint.setColor(Color.argb(255, 255, 140, 0)); //orange
-            canvas.drawCircle(200, 1200, 100, paint);
-            canvas.drawCircle(2300, 1200, 100, paint);
+            canvas.drawCircle(screenMargin, distBetween*5, dotSize, paint);
+            canvas.drawCircle(screenX - screenMargin, distBetween*5, dotSize, paint);
 
             //Player1 Pressed
             for(int i = 0; i < p1ArrowList.size(); i++){
@@ -174,55 +189,69 @@ public class GameView extends SurfaceView implements Runnable {
 
 
                 //Player 1 Buttons
-                if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  100 < motionEvent.getY() && motionEvent.getY() < 300) {
-
-                    arrow = new p1Arrow(context, 50, 100, "blue");
+                if ( screenMargin-dotSize < motionEvent.getX() && motionEvent.getX() < screenMargin+dotSize  &&  distBetween-dotSize < motionEvent.getY() && motionEvent.getY() < distBetween+dotSize) {
+                    double spawnPointY = (distBetween) - dotSize;
+                    double spawnPointX = screenMargin - (dotSize);
+                    arrow = new p1Arrow(context, (int)spawnPointX, (int)spawnPointY, "blue",dotSize);
                     p1ArrowList.add(arrow);
                 }
 
-                if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  350 < motionEvent.getY() && motionEvent.getY() < 550) {
-
-                    arrow = new p1Arrow(context, 50, 350, "red");
+                if (screenMargin-dotSize < motionEvent.getX() && motionEvent.getX() < screenMargin+dotSize  &&  distBetween*2-dotSize < motionEvent.getY() && motionEvent.getY() < distBetween*2+dotSize) {
+                    double spawnPointY = (distBetween * 2) - dotSize;
+                    double spawnPointX = screenMargin - (dotSize);
+                    arrow = new p1Arrow(context, (int)spawnPointX, (int)spawnPointY, "red",dotSize);
                     p1ArrowList.add(arrow);
                 }
-                if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  600 < motionEvent.getY() && motionEvent.getY() < 800) {
-
-                    arrow = new p1Arrow(context, 50, 600, "green");
+                if (screenMargin-dotSize < motionEvent.getX() && motionEvent.getX() < screenMargin+dotSize  &&  distBetween*3-dotSize < motionEvent.getY() && motionEvent.getY() < distBetween*3+dotSize) {
+                    double spawnPointY = (distBetween * 3) - dotSize;
+                    double spawnPointX = screenMargin - (dotSize);
+                    arrow = new p1Arrow(context, (int)spawnPointX, (int)spawnPointY, "green",dotSize);
                     p1ArrowList.add(arrow);
                 }
-                if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  850 < motionEvent.getY() && motionEvent.getY() < 1050) {
-                    arrow = new p1Arrow(context, 50, 850, "yellow");
+                if (screenMargin-dotSize < motionEvent.getX() && motionEvent.getX() < screenMargin+dotSize  &&  distBetween*4-dotSize < motionEvent.getY() && motionEvent.getY() < distBetween*4+dotSize) {
+                    double spawnPointY = (distBetween * 4) - dotSize;
+                    double spawnPointX = screenMargin - (dotSize);
+                    arrow = new p1Arrow(context, (int)spawnPointX, (int)spawnPointY , "yellow",dotSize);
                     p1ArrowList.add(arrow);
                 }
-                if ( 100 < motionEvent.getX() && motionEvent.getX() < 300  &&  1100 < motionEvent.getY() && motionEvent.getY() < 1300) {
-                    arrow = new p1Arrow(context, 50, 1100, "orange");
+                if (screenMargin-dotSize < motionEvent.getX() && motionEvent.getX() < screenMargin+dotSize  &&  distBetween*5-dotSize < motionEvent.getY() && motionEvent.getY() < distBetween*5+dotSize) {
+                    double spawnPointY = (distBetween * 5) - dotSize;
+                    double spawnPointX = screenMargin - (dotSize);
+                    arrow = new p1Arrow(context, (int)spawnPointX, (int)spawnPointY, "orange",dotSize);
                     p1ArrowList.add(arrow);
                 }
 
 
                 //Player 2 Buttons
-                if ( 2200 < motionEvent.getX() && motionEvent.getX() < 2400  &&  100 < motionEvent.getY() && motionEvent.getY() < 300) {
-                    p2arrow = new p2Arrow(context, 2300, 100, "blue");
+                if ( screenX - (screenMargin+dotSize) < motionEvent.getX() && motionEvent.getX() < screenX - (screenMargin-dotSize)  &&  distBetween-dotSize < motionEvent.getY() && motionEvent.getY() < distBetween+dotSize) {
+                    double spawnPointY = (distBetween) - dotSize;
+                    double spawnPointX = screenX - (screenMargin + (dotSize));
+                    p2arrow = new p2Arrow(context, (int)spawnPointX, (int)spawnPointY, "blue", dotSize);
                     p2ArrowList.add(p2arrow);
                 }
 
-                if ( 2200 < motionEvent.getX() && motionEvent.getX() < 2400  &&  350 < motionEvent.getY() && motionEvent.getY() < 550) {
-                    p2arrow = new p2Arrow(context, 2300, 350, "red");
+                if ( screenX - (screenMargin+dotSize) < motionEvent.getX() && motionEvent.getX() < screenX - (screenMargin-dotSize)  &&  distBetween*2-dotSize < motionEvent.getY() && motionEvent.getY() < distBetween*2+dotSize) {
+                    double spawnPointY = (distBetween*2) - dotSize;
+                    double spawnPointX = screenX - (screenMargin + dotSize);
+                    p2arrow = new p2Arrow(context, (int)spawnPointX, (int)spawnPointY, "red", dotSize);
                     p2ArrowList.add(p2arrow);
                 }
-                if ( 2200 < motionEvent.getX() && motionEvent.getX() < 2400  &&  600 < motionEvent.getY() && motionEvent.getY() < 800) {
-
-                    p2arrow = new p2Arrow(context, 2300, 600, "green");
+                if ( screenX - (screenMargin+dotSize) < motionEvent.getX() && motionEvent.getX() < screenX - (screenMargin-dotSize)  &&  distBetween*3-dotSize < motionEvent.getY() && motionEvent.getY() < distBetween*3+dotSize) {
+                    double spawnPointY = (distBetween*3) - dotSize;
+                    double spawnPointX = screenX - (screenMargin + dotSize);
+                    p2arrow = new p2Arrow(context, (int)spawnPointX, (int)spawnPointY, "green", dotSize);
                     p2ArrowList.add(p2arrow);
                 }
-                if ( 2200 < motionEvent.getX() && motionEvent.getX() < 2400  &&  850 < motionEvent.getY() && motionEvent.getY() < 1050) {
-
-                    p2arrow = new p2Arrow(context, 2300, 850, "yellow");
+                if ( screenX - (screenMargin+dotSize) < motionEvent.getX() && motionEvent.getX() < screenX - (screenMargin-dotSize)  &&  distBetween*4-dotSize < motionEvent.getY() && motionEvent.getY() < distBetween*4+dotSize) {
+                    double spawnPointY = (distBetween*4) - dotSize;
+                    double spawnPointX = screenX - (screenMargin + dotSize);
+                    p2arrow = new p2Arrow(context, (int)spawnPointX, (int)spawnPointY, "yellow", dotSize);
                     p2ArrowList.add(p2arrow);
                 }
-                if ( 2200 < motionEvent.getX() && motionEvent.getX() < 2400  &&  1100 < motionEvent.getY() && motionEvent.getY() < 1300) {
-
-                    p2arrow = new p2Arrow(context, 2300, 1100, "orange");
+                if ( screenX - (screenMargin+dotSize) < motionEvent.getX() && motionEvent.getX() < screenX - (screenMargin-dotSize)  &&  distBetween*5-dotSize < motionEvent.getY() && motionEvent.getY() < distBetween*5+dotSize) {
+                    double spawnPointY = (distBetween*5) - dotSize;
+                    double spawnPointX = screenX - (screenMargin + dotSize);
+                    p2arrow = new p2Arrow(context, (int)spawnPointX, (int)spawnPointY, "orange", dotSize);
                     p2ArrowList.add(p2arrow);
                 }
 
