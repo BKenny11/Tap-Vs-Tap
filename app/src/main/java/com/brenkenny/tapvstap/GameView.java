@@ -207,17 +207,36 @@ public class GameView extends SurfaceView implements Runnable {
             default:
                 colorNum = 5;
         }
+        boolean hitDetected = false;
 
         if(playerNum == 1){
             if(screenMargin - dotSize < motionEvent.getX() && motionEvent.getX() < screenMargin + dotSize  &&  distBetween * colorNum - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * colorNum + dotSize){
-                arrow = new p1Arrow(context, p1SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
-                p1ArrowList.add(arrow);
+                for(int i = 0; i < p2ArrowList.size(); i++){
+                    if(screenMargin - dotSize < p2ArrowList.get(i).getX() + dotSize * 2/*?*/ && p2ArrowList.get(i).getX() < screenMargin + dotSize && distBetween * colorNum - dotSize < p2ArrowList.get(i).getY() + dotSize/2 && p2ArrowList.get(i).getY() + dotSize/2 < distBetween * colorNum + dotSize){
+                        p2ArrowList.get(i).setX(-500);
+                        hitDetected = true;
+                        break; //prevent hitting multiple arrows at once
+                    }
+                }
+                if(!hitDetected){ //temporary until we get turns working
+                    arrow = new p1Arrow(context, p1SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
+                    p1ArrowList.add(arrow);
+                }
             }
         }
         else{
             if(screenX - (screenMargin + dotSize) < motionEvent.getX() && motionEvent.getX() < screenX - (screenMargin - dotSize)  &&  distBetween * colorNum - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * colorNum + dotSize){
-                p2arrow = new p2Arrow(context, p2SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
-                p2ArrowList.add(p2arrow);
+                for(int i = 0; i < p1ArrowList.size(); i++){
+                    if(screenX - (screenMargin + dotSize) < p1ArrowList.get(i).getX() + dotSize * 2/*?*/ && p1ArrowList.get(i).getX() < screenX - (screenMargin - dotSize) && distBetween * colorNum - dotSize < p1ArrowList.get(i).getY() + dotSize/2 && p1ArrowList.get(i).getY() + dotSize/2 < distBetween * colorNum + dotSize){
+                        p1ArrowList.get(i).setX(3100);
+                        hitDetected = true;
+                        break; //prevent hitting multiple arrows at once
+                    }
+                }
+                if(!hitDetected){
+                    p2arrow = new p2Arrow(context, p2SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
+                    p2ArrowList.add(p2arrow);
+                }
             }
         }
     }

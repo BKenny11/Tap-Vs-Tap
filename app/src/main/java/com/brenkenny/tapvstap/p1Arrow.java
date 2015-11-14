@@ -58,6 +58,10 @@ package com.brenkenny.tapvstap;
             return x;
         }
 
+        public void setX(int newX) {
+            x = newX;
+        }
+
         public int getY() {
 
             return y;

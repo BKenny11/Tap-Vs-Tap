@@ -59,6 +59,10 @@ public class p2Arrow {
         return x;
     }
 
+    public void setX(int newX) {
+        x = newX;
+    }
+
     public int getY() {
 
         return y;
