@@ -172,9 +172,17 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawCircle(screenMargin, distBetween * 5, dotSize, paint);
             canvas.drawCircle(screenX - screenMargin, distBetween * 5, dotSize, paint);
 
+            paint.setColor(Color.argb(255, 255, 255, 255));
+            paint.setTextSize(75f);
+
+            if(p1Turn) {
+                canvas.drawText("<  Round: "+ roundCount, screenX / 2, 75, paint);
+            }else{
+                canvas.drawText("Round: "+ roundCount+"   >", screenX / 2, 75, paint);
+            }
             paint.setTextSize(24f);
-            canvas.drawText("Player 1 lives: "+p1Lives, screenX/2,24, paint);
-            canvas.drawText("Player 2 lives: "+p2Lives, screenX/2,screenY-10, paint);
+            canvas.drawText("Player 1 lives: "+p1Lives, screenMargin-10,screenY-10, paint);
+            canvas.drawText("Player 2 lives: "+p2Lives, screenX-screenMargin-10, screenY-10, paint);
 
             //Player1 Pressed
             for(int i = 0; i < p1ArrowList.size(); i++){
@@ -190,7 +198,7 @@ public class GameView extends SurfaceView implements Runnable {
 
             if(gameEnd == true){
                 paint.setTextSize(100f);
-                paint.setColor(Color.argb(255, 255, 255, 255)); //green
+                paint.setColor(Color.argb(255, 255, 255, 255));
                 if(p1Lives == 0) {
                     canvas.drawText("Game Over : Player 2 Wins!!", screenX / 2 - 500, screenY / 2, paint);
                 }else if(p2Lives == 0){
@@ -289,9 +297,6 @@ public class GameView extends SurfaceView implements Runnable {
                             p2ArrowList.remove(i);
                             break; //prevent hitting multiple arrows at once
                         }
-                        else{
-                            p1Lives--;
-                        }
                     }
                 }
 
@@ -312,9 +317,7 @@ public class GameView extends SurfaceView implements Runnable {
                             p1ArrowList.remove(i);
                             break; //prevent hitting multiple arrows at once
                         }
-                        else {
-                            p2Lives--;
-                        }
+
                     }
                 }
                 else if (p2ArrowsLeft > 0){
