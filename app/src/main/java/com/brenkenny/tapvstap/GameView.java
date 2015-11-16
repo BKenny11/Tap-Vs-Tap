@@ -30,6 +30,8 @@ public class GameView extends SurfaceView implements Runnable {
 
     private int roundCount;
 
+    private boolean gameEnd;
+
     private int p1Lives;
     private int p2Lives;
 
@@ -109,6 +111,11 @@ public class GameView extends SurfaceView implements Runnable {
                 p1Lives--;
             }
         }
+        if(p1Lives == 0 || p2Lives == 0){
+            p2ArrowList.clear();
+            p1ArrowList.clear();
+            gameEnd = true;
+        }
     }
 
     private void draw() {
@@ -152,6 +159,16 @@ public class GameView extends SurfaceView implements Runnable {
                 canvas.drawBitmap(mp2Arrow.getBitmap(), mp2Arrow.getX(), mp2Arrow.getY(), paint);
             }
 
+            if(gameEnd == true){
+                paint.setTextSize(100f);
+                paint.setColor(Color.argb(255, 255, 255, 255)); //green
+                if(p1Lives == 0) {
+                    canvas.drawText("Game Over : Player 2 Wins!!", screenX / 2 - 500, screenY / 2, paint);
+                }else if(p2Lives == 0){
+                    canvas.drawText("Game Over : Player 1 Wins!!", screenX / 2-500, screenY / 2, paint);
+                }
+            }
+
             // Unlock and draw the scene
             ourHolder.unlockCanvasAndPost(canvas);
         }
@@ -181,20 +198,22 @@ public class GameView extends SurfaceView implements Runnable {
 
             // Has the player touched the screen?
             case MotionEvent.ACTION_DOWN:
-                //Player 1 Buttons
-                checkColorTapped(1, "blue", motionEvent);
-                checkColorTapped(1, "red", motionEvent);
-                checkColorTapped(1, "green", motionEvent);
-                checkColorTapped(1, "yellow", motionEvent);
-                checkColorTapped(1, "orange", motionEvent);
 
-                //Player 2 Buttons
-                checkColorTapped(2, "blue", motionEvent);
-                checkColorTapped(2, "red", motionEvent);
-                checkColorTapped(2, "green", motionEvent);
-                checkColorTapped(2, "yellow", motionEvent);
-                checkColorTapped(2, "orange", motionEvent);
+                if(gameEnd!=true) {
+                    //Player 1 Buttons
+                    checkColorTapped(1, "blue", motionEvent);
+                    checkColorTapped(1, "red", motionEvent);
+                    checkColorTapped(1, "green", motionEvent);
+                    checkColorTapped(1, "yellow", motionEvent);
+                    checkColorTapped(1, "orange", motionEvent);
 
+                    //Player 2 Buttons
+                    checkColorTapped(2, "blue", motionEvent);
+                    checkColorTapped(2, "red", motionEvent);
+                    checkColorTapped(2, "green", motionEvent);
+                    checkColorTapped(2, "yellow", motionEvent);
+                    checkColorTapped(2, "orange", motionEvent);
+                }
                 break;
         }
         return true;
