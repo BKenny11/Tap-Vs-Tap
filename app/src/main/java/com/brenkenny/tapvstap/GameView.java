@@ -92,7 +92,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         roundCount = 1;
         p1ArrowsLeft = roundCount;
-        p1ArrowsLeft = roundCount;
+        p2ArrowsLeft = roundCount;
 
         p1Turn = true;
         p2Turn = false;
@@ -131,6 +131,19 @@ public class GameView extends SurfaceView implements Runnable {
             p2ArrowList.clear();
             p1ArrowList.clear();
             gameEnd = true;
+        }
+        
+        if (p1Turn && p1ArrowsLeft == 0 && p1ArrowList.size() == 0 ){
+            p2Turn = true;
+            p1Turn = false;
+            roundCount++;
+            p2ArrowsLeft = roundCount;
+        }
+        else if (p2Turn && p2ArrowsLeft == 0 && p2ArrowList.size() == 0) {
+            p1Turn = true;
+            p2Turn = false;
+            roundCount++;
+            p1ArrowsLeft = roundCount;
         }
     }
 
@@ -270,12 +283,10 @@ public class GameView extends SurfaceView implements Runnable {
         //Player1
         if(playerNum == 1){
             if(screenMargin - dotSize < motionEvent.getX() && motionEvent.getX() < screenMargin + dotSize  &&  distBetween * colorNum - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * colorNum + dotSize){
-
                 if(p2Turn) {
                     for (int i = 0; i < p2ArrowList.size(); i++) {
                         if (screenMargin - dotSize < p2ArrowList.get(i).getX() + dotSize * 2/*?*/ && p2ArrowList.get(i).getX() < screenMargin + dotSize && distBetween * colorNum - dotSize < p2ArrowList.get(i).getY() + dotSize / 2 && p2ArrowList.get(i).getY() + dotSize / 2 < distBetween * colorNum + dotSize) {
                             p2ArrowList.remove(i);
-                            hitDetected = true;
                             break; //prevent hitting multiple arrows at once
                         }
                         else{
@@ -284,19 +295,10 @@ public class GameView extends SurfaceView implements Runnable {
                     }
                 }
 
-                else {
-                    if(p1ArrowsLeft > 0) {
-                        arrow = new p1Arrow(context, p1SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
-                        p1ArrowList.add(arrow);
-                        p1ArrowsLeft--;
-
-
-                    }else if (p1ArrowsLeft == 0 && p1ArrowList.size() == 0 ){
-                        p2Turn = true;
-                        p1Turn = false;
-                        roundCount++;
-                        p2ArrowsLeft = roundCount;
-                    }
+                else if(p1ArrowsLeft > 0){
+                    arrow = new p1Arrow(context, p1SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
+                    p1ArrowList.add(arrow);
+                    p1ArrowsLeft--;
                 }
             }
         }
@@ -304,29 +306,21 @@ public class GameView extends SurfaceView implements Runnable {
         //Player 2
         else{
             if(screenX - (screenMargin + dotSize) < motionEvent.getX() && motionEvent.getX() < screenX - (screenMargin - dotSize)  &&  distBetween * colorNum - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * colorNum + dotSize) {
-                if (p1Turn) {
+                if(p1Turn) {
                     for (int i = 0; i < p1ArrowList.size(); i++) {
                         if (screenX - (screenMargin + dotSize) < p1ArrowList.get(i).getX() + dotSize * 2/*?*/ && p1ArrowList.get(i).getX() < screenX - (screenMargin - dotSize) && distBetween * colorNum - dotSize < p1ArrowList.get(i).getY() + dotSize / 2 && p1ArrowList.get(i).getY() + dotSize / 2 < distBetween * colorNum + dotSize) {
                             p1ArrowList.remove(i);
-                            hitDetected = true;
                             break; //prevent hitting multiple arrows at once
-                        } else {
+                        }
+                        else {
                             p2Lives--;
                         }
                     }
-                } else {
-                    if (p1ArrowsLeft > 0) {
-                        p2arrow = new p2Arrow(context, p2SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
-                        p2ArrowList.add(p2arrow);
-                        p2ArrowsLeft--;
-
-
-                    } else if (p2ArrowsLeft == 0 && p2ArrowList.size() == 0) {
-                        p1Turn = true;
-                        p2Turn = false;
-                        roundCount++;
-                        p1ArrowsLeft = roundCount;
-                    }
+                }
+                else if (p2ArrowsLeft > 0){
+                    p2arrow = new p2Arrow(context, p2SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
+                    p2ArrowList.add(p2arrow);
+                    p2ArrowsLeft--;
                 }
             }
         }
