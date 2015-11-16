@@ -80,7 +80,9 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void startGame(){
-
+        gameEnd = false;
+        p1Lives = 3;
+        p2Lives = 3;
     }
 
     @Override
@@ -213,6 +215,9 @@ public class GameView extends SurfaceView implements Runnable {
                     checkColorTapped(2, "green", motionEvent);
                     checkColorTapped(2, "yellow", motionEvent);
                     checkColorTapped(2, "orange", motionEvent);
+                }
+                if(gameEnd){
+                    startGame();
                 }
                 break;
         }
