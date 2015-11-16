@@ -30,6 +30,9 @@ public class GameView extends SurfaceView implements Runnable {
 
     private int roundCount;
 
+    private int p1Lives;
+    private int p2Lives;
+
     private int screenX;
     private int screenY;
     private int distBetween;
@@ -62,6 +65,9 @@ public class GameView extends SurfaceView implements Runnable {
         p1SpawnPointX = screenMargin - dotSize;
         p2SpawnPointX = screenX - screenMargin - dotSize;
 
+        p1Lives = 3;
+        p2Lives = 3;
+
         // Initialize our drawing objects
         ourHolder = getHolder();
         paint = new Paint();
@@ -91,6 +97,7 @@ public class GameView extends SurfaceView implements Runnable {
 
             if (mp1Arrow.getX() > 3000) {
                 p1ArrowList.remove(i);
+                p2Lives--;
             }
         }
         for(int i = 0; i < p2ArrowList.size(); i++){
@@ -99,6 +106,7 @@ public class GameView extends SurfaceView implements Runnable {
 
             if (mp2Arrow.getX() < -400) {
                 p2ArrowList.remove(i);
+                p1Lives--;
             }
         }
     }
@@ -113,20 +121,24 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawCircle(screenX - screenMargin, distBetween, dotSize, paint);
 
             paint.setColor(Color.argb(255, 255, 0, 0)); //red
-            canvas.drawCircle(screenMargin, distBetween*2, dotSize, paint);
+            canvas.drawCircle(screenMargin, distBetween * 2, dotSize, paint);
             canvas.drawCircle(screenX - screenMargin, distBetween * 2, dotSize, paint);
 
             paint.setColor(Color.argb(255, 0, 255, 0)); //green
-            canvas.drawCircle(screenMargin, distBetween*3, dotSize, paint);
-            canvas.drawCircle(screenX - screenMargin, distBetween*3, dotSize, paint);
+            canvas.drawCircle(screenMargin, distBetween * 3, dotSize, paint);
+            canvas.drawCircle(screenX - screenMargin, distBetween * 3, dotSize, paint);
 
             paint.setColor(Color.argb(255, 255, 255, 0)); //yellow
-            canvas.drawCircle(screenMargin, distBetween*4, dotSize, paint);
-            canvas.drawCircle(screenX - screenMargin, distBetween*4, dotSize, paint);
+            canvas.drawCircle(screenMargin, distBetween * 4, dotSize, paint);
+            canvas.drawCircle(screenX - screenMargin, distBetween * 4, dotSize, paint);
 
             paint.setColor(Color.argb(255, 255, 140, 0)); //orange
-            canvas.drawCircle(screenMargin, distBetween*5, dotSize, paint);
-            canvas.drawCircle(screenX - screenMargin, distBetween*5, dotSize, paint);
+            canvas.drawCircle(screenMargin, distBetween * 5, dotSize, paint);
+            canvas.drawCircle(screenX - screenMargin, distBetween * 5, dotSize, paint);
+
+            paint.setTextSize(24f);
+            canvas.drawText("Player 1 lives: "+p1Lives, screenX/2,24, paint);
+            canvas.drawText("Player 2 lives: "+p2Lives, screenX/2,screenY-10, paint);
 
             //Player1 Pressed
             for(int i = 0; i < p1ArrowList.size(); i++){
@@ -213,7 +225,7 @@ public class GameView extends SurfaceView implements Runnable {
             if(screenMargin - dotSize < motionEvent.getX() && motionEvent.getX() < screenMargin + dotSize  &&  distBetween * colorNum - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * colorNum + dotSize){
                 for(int i = 0; i < p2ArrowList.size(); i++){
                     if(screenMargin - dotSize < p2ArrowList.get(i).getX() + dotSize * 2/*?*/ && p2ArrowList.get(i).getX() < screenMargin + dotSize && distBetween * colorNum - dotSize < p2ArrowList.get(i).getY() + dotSize/2 && p2ArrowList.get(i).getY() + dotSize/2 < distBetween * colorNum + dotSize){
-                        p2ArrowList.get(i).setX(-500);
+                        p2ArrowList.remove(i);
                         hitDetected = true;
                         break; //prevent hitting multiple arrows at once
                     }
@@ -228,7 +240,7 @@ public class GameView extends SurfaceView implements Runnable {
             if(screenX - (screenMargin + dotSize) < motionEvent.getX() && motionEvent.getX() < screenX - (screenMargin - dotSize)  &&  distBetween * colorNum - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * colorNum + dotSize){
                 for(int i = 0; i < p1ArrowList.size(); i++){
                     if(screenX - (screenMargin + dotSize) < p1ArrowList.get(i).getX() + dotSize * 2/*?*/ && p1ArrowList.get(i).getX() < screenX - (screenMargin - dotSize) && distBetween * colorNum - dotSize < p1ArrowList.get(i).getY() + dotSize/2 && p1ArrowList.get(i).getY() + dotSize/2 < distBetween * colorNum + dotSize){
-                        p1ArrowList.get(i).setX(3100);
+                        p1ArrowList.remove(i);
                         hitDetected = true;
                         break; //prevent hitting multiple arrows at once
                     }
