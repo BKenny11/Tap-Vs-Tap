@@ -6,6 +6,8 @@ package com.brenkenny.tapvstap;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -27,6 +29,8 @@ public class GameView extends SurfaceView implements Runnable {
     ArrayList<p2Arrow> p2ArrowList = new ArrayList<p2Arrow>();
 
     private Context context;
+
+    private Bitmap life;
 
     private int roundCount;
 
@@ -68,7 +72,11 @@ public class GameView extends SurfaceView implements Runnable {
         distBetween = screenY / 6;
         dotSize = screenY / 15;
 
-        screenMargin = (int)(dotSize * 1.5);
+        screenMargin = (int)(dotSize * 3);
+
+        life  = BitmapFactory.decodeResource(context.getResources(), R.drawable.life);
+        life = Bitmap.createScaledBitmap(life, dotSize/2, dotSize/2, true);
+
 
         p1SpawnPointX = screenMargin - dotSize;
         p2SpawnPointX = screenX - screenMargin - dotSize;
@@ -175,14 +183,36 @@ public class GameView extends SurfaceView implements Runnable {
             paint.setColor(Color.argb(255, 255, 255, 255));
             paint.setTextSize(75f);
 
-            if(p1Turn) {
-                canvas.drawText("<  Round: "+ roundCount, screenX / 2, 75, paint);
-            }else{
-                canvas.drawText("Round: "+ roundCount+"   >", screenX / 2, 75, paint);
+
+
+            paint.setTextSize(50f);
+
+            //P1 UI
+            canvas.save();
+                canvas.rotate(90);
+                canvas.drawText("Lives:", 0, -100, paint);
+                canvas.drawText("Round: "+roundCount,screenY-150,0,paint);
+            for (int i= 0; i<p1Lives; i++) {
+                canvas.drawBitmap(life, 100*i, -50, paint);
             }
-            paint.setTextSize(24f);
-            canvas.drawText("Player 1 lives: "+p1Lives, screenMargin-10,screenY-10, paint);
-            canvas.drawText("Player 2 lives: "+p2Lives, screenX-screenMargin-10, screenY-10, paint);
+            if(p1Turn) {
+                canvas.drawText("FIRE!! ("+ p1ArrowsLeft+")", screenY / 2, 0, paint);
+            }
+
+            canvas.restore();
+
+            //P2 UI
+            canvas.save();
+                canvas.rotate(-90);
+                canvas.drawText("Lives: ", -screenY, screenX-100, paint);
+                canvas.drawText("Round: "+roundCount,-screenY/5,screenX,paint);
+            for (int i= 0; i<p2Lives; i++) {
+                canvas.drawBitmap(life, -screenY + i*100, screenX-60, paint);
+            }
+            if(p2Turn) {
+                canvas.drawText("FIRE!! ("+ p2ArrowsLeft+")", -screenY / 2, screenX, paint);
+            }
+            canvas.restore();
 
             //Player1 Pressed
             for(int i = 0; i < p1ArrowList.size(); i++){
