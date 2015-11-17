@@ -47,6 +47,10 @@ public class GameView extends SurfaceView implements Runnable {
 
     private int screenX;
     private int screenY;
+
+    private int xPixel;
+    private int yPixel;
+
     private int distBetween;
     private int dotSize;
     private int screenMargin;
@@ -68,6 +72,9 @@ public class GameView extends SurfaceView implements Runnable {
 
         screenX = x;
         screenY = y;
+
+        xPixel = screenX/100;
+        yPixel = screenY/100;
 
         distBetween = screenY / 6;
         dotSize = screenY / 15;
@@ -190,13 +197,13 @@ public class GameView extends SurfaceView implements Runnable {
             //P1 UI
             canvas.save();
                 canvas.rotate(90);
-                canvas.drawText("Lives:", 0, -100, paint);
-                canvas.drawText("Round: "+roundCount,screenY-150,0,paint);
+                canvas.drawText("Lives:", 0, -5*yPixel, paint);
+                canvas.drawText("Round: "+roundCount,screenY-15*yPixel,-yPixel,paint);
             for (int i= 0; i<p1Lives; i++) {
-                canvas.drawBitmap(life, 100*i, -50, paint);
+                canvas.drawBitmap(life, 5*xPixel*i, -5*yPixel, paint);
             }
             if(p1Turn) {
-                canvas.drawText("FIRE!! ("+ p1ArrowsLeft+")", screenY / 2, 0, paint);
+                canvas.drawText("FIRE!! ("+ p1ArrowsLeft+")", screenY / 2 - 3*xPixel, -yPixel, paint);
             }
 
             canvas.restore();
@@ -205,12 +212,12 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.save();
                 canvas.rotate(-90);
                 canvas.drawText("Lives: ", -screenY, screenX-100, paint);
-                canvas.drawText("Round: "+roundCount,-screenY/5,screenX,paint);
+                canvas.drawText("Round: "+roundCount,-screenY+85*yPixel,screenX-xPixel,paint);
             for (int i= 0; i<p2Lives; i++) {
-                canvas.drawBitmap(life, -screenY + i*100, screenX-60, paint);
+                canvas.drawBitmap(life, -screenY + i*5*xPixel, screenX-5*yPixel, paint);
             }
             if(p2Turn) {
-                canvas.drawText("FIRE!! ("+ p2ArrowsLeft+")", -screenY / 2, screenX, paint);
+                canvas.drawText("FIRE!! ("+ p2ArrowsLeft+")", -screenY / 2 - 3*yPixel, screenX - 5*yPixel, paint);
             }
             canvas.restore();
 
