@@ -197,13 +197,13 @@ public class GameView extends SurfaceView implements Runnable {
             //P1 UI
             canvas.save();
                 canvas.rotate(90);
-                canvas.drawText("Lives:", 0, -5*yPixel, paint);
+                canvas.drawText("Lives:", 10, -6*yPixel, paint);
                 canvas.drawText("Round: "+roundCount,screenY-20*yPixel,-yPixel,paint);
             for (int i= 0; i<p1Lives; i++) {
-                canvas.drawBitmap(life, 5*xPixel*i, -5*yPixel, paint);
+                canvas.drawBitmap(life, 5*xPixel*i + 10, -5*yPixel, paint);
             }
             if(p1Turn) {
-                canvas.drawText("FIRE!! ("+ p1ArrowsLeft+")", screenY / 2 - 3*xPixel, -yPixel, paint);
+                canvas.drawText("FIRE!! ("+ p1ArrowsLeft+")", screenY / 2 - 5*xPixel, -2*yPixel, paint);
             }
 
             canvas.restore();
@@ -211,13 +211,13 @@ public class GameView extends SurfaceView implements Runnable {
             //P2 UI
             canvas.save();
                 canvas.rotate(-90);
-                canvas.drawText("Lives: ", -screenY, screenX-100, paint);
-                canvas.drawText("Round: "+roundCount,-screenY+75*yPixel,screenX-xPixel,paint);
+                canvas.drawText("Lives: ", -screenY, screenX-70, paint);
+                canvas.drawText("Round: "+roundCount,-screenY+80*yPixel,screenX-xPixel,paint);
             for (int i= 0; i<p2Lives; i++) {
                 canvas.drawBitmap(life, -screenY + i*5*xPixel, screenX-5*yPixel, paint);
             }
             if(p2Turn) {
-                canvas.drawText("FIRE!! ("+ p2ArrowsLeft+")", -screenY / 2 - 3*yPixel, screenX - 5*yPixel, paint);
+                canvas.drawText("FIRE!! ("+ p2ArrowsLeft+")", -screenY / 2 - 5*xPixel, screenX -2*yPixel, paint);
             }
             canvas.restore();
 
