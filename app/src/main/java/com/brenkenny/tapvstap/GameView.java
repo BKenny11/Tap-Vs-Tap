@@ -11,13 +11,30 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.media.SoundPool;
 
 import java.util.ArrayList;
 
 public class GameView extends SurfaceView implements Runnable {
+
+    private SoundPool mSoundPool;
+    AudioManager audioManager;
+    int soundId1;
+    int soundId2;
+    int soundId3;
+    int soundId4;
+    int soundId5;
+
+    int soundId6;
+    int soundId7;
+    int soundId8;
+    int soundId9;
+    int soundId10;
 
     private p1Arrow arrow;
     private p2Arrow p2arrow;
@@ -69,6 +86,20 @@ public class GameView extends SurfaceView implements Runnable {
     GameView(Context context, int x, int y) {
         super(context);
         this.context  = context;
+
+        mSoundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+
+        soundId1 = mSoundPool.load(context, R.raw.cnote, 1);
+        soundId2 = mSoundPool.load(context, R.raw.dnote, 1);
+        soundId3 = mSoundPool.load(context, R.raw.enote, 1);
+        soundId4 = mSoundPool.load(context, R.raw.fnote, 1);
+        soundId5 = mSoundPool.load(context, R.raw.gnote, 1);
+
+        soundId6 = mSoundPool.load(context, R.raw.cnote2, 1);
+        soundId7 = mSoundPool.load(context, R.raw.dnote2, 1);
+        soundId8 = mSoundPool.load(context, R.raw.enote2, 1);
+        soundId9 = mSoundPool.load(context, R.raw.fnote2, 1);
+        soundId10 = mSoundPool.load(context, R.raw.gnote2, 1);
 
         screenX = x;
         screenY = y;
@@ -225,6 +256,7 @@ public class GameView extends SurfaceView implements Runnable {
             for(int i = 0; i < p1ArrowList.size(); i++){
                 p1Arrow mp1Arrow = p1ArrowList.get(i);
                 canvas.drawBitmap(mp1Arrow.getBitmap(), mp1Arrow.getX(), mp1Arrow.getY(), paint);
+
             }
 
             //Player2 Pressed
@@ -332,6 +364,21 @@ public class GameView extends SurfaceView implements Runnable {
                     for (int i = 0; i < p2ArrowList.size(); i++) {
                         if (screenMargin - dotSize < p2ArrowList.get(i).getX() + dotSize * 2/*?*/ && p2ArrowList.get(i).getX() < screenMargin + dotSize && distBetween * colorNum - dotSize < p2ArrowList.get(i).getY() + dotSize / 2 && p2ArrowList.get(i).getY() + dotSize / 2 < distBetween * colorNum + dotSize) {
                             p2ArrowList.remove(i);
+
+                            if (color == "blue") {
+                                mSoundPool.play(soundId1, 1, 1, 0, 0, 1);
+                            }else if (color == "red"){
+                                mSoundPool.play(soundId2, 1, 1, 0, 0, 1);
+                            }else if (color == "green"){
+                                mSoundPool.play(soundId3, 1, 1, 0, 0, 1);
+                            }
+                            else if (color == "yellow"){
+                                mSoundPool.play(soundId4, 1, 1, 0, 0, 1);
+                            }
+                            else if (color == "orange"){
+                                mSoundPool.play(soundId5, 1, 1, 0, 0, 1);
+                            }
+
                             break; //prevent hitting multiple arrows at once
                         }
                     }
@@ -341,8 +388,23 @@ public class GameView extends SurfaceView implements Runnable {
                     arrow = new p1Arrow(context, p1SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
                     p1ArrowList.add(arrow);
                     p1ArrowsLeft--;
+
+                    if (color == "blue") {
+                        mSoundPool.play(soundId1, 1, 1, 0, 0, 1);
+                    }else if (color == "red"){
+                        mSoundPool.play(soundId2, 1, 1, 0, 0, 1);
+                    }else if (color == "green"){
+                        mSoundPool.play(soundId3, 1, 1, 0, 0, 1);
+                    }
+                    else if (color == "yellow"){
+                        mSoundPool.play(soundId4, 1, 1, 0, 0, 1);
+                    }
+                    else if (color == "orange"){
+                        mSoundPool.play(soundId5, 1, 1, 0, 0, 1);
+                    }
                 }
             }
+
         }
 
         //Player 2
@@ -352,6 +414,21 @@ public class GameView extends SurfaceView implements Runnable {
                     for (int i = 0; i < p1ArrowList.size(); i++) {
                         if (screenX - (screenMargin + dotSize) < p1ArrowList.get(i).getX() + dotSize * 2/*?*/ && p1ArrowList.get(i).getX() < screenX - (screenMargin - dotSize) && distBetween * colorNum - dotSize < p1ArrowList.get(i).getY() + dotSize / 2 && p1ArrowList.get(i).getY() + dotSize / 2 < distBetween * colorNum + dotSize) {
                             p1ArrowList.remove(i);
+
+                            if (color == "blue") {
+                                mSoundPool.play(soundId6, 1, 1, 0, 0, 1);
+                            }else if (color == "red"){
+                                mSoundPool.play(soundId7, 1, 1, 0, 0, 1);
+                            }else if (color == "green"){
+                                mSoundPool.play(soundId8, 1, 1, 0, 0, 1);
+                            }
+                            else if (color == "yellow"){
+                                mSoundPool.play(soundId9, 1, 1, 0, 0, 1);
+                            }
+                            else if (color == "orange"){
+                                mSoundPool.play(soundId10, 1, 1, 0, 0, 1);
+                            }
+
                             break; //prevent hitting multiple arrows at once
                         }
 
@@ -361,6 +438,20 @@ public class GameView extends SurfaceView implements Runnable {
                     p2arrow = new p2Arrow(context, p2SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
                     p2ArrowList.add(p2arrow);
                     p2ArrowsLeft--;
+
+                    if (color == "blue") {
+                        mSoundPool.play(soundId6, 1, 1, 0, 0, 1);
+                    }else if (color == "red"){
+                        mSoundPool.play(soundId7, 1, 1, 0, 0, 1);
+                    }else if (color == "green"){
+                        mSoundPool.play(soundId8, 1, 1, 0, 0, 1);
+                    }
+                    else if (color == "yellow"){
+                        mSoundPool.play(soundId9, 1, 1, 0, 0, 1);
+                    }
+                    else if (color == "orange"){
+                        mSoundPool.play(soundId10, 1, 1, 0, 0, 1);
+                    }
                 }
             }
         }

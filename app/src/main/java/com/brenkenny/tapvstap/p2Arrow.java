@@ -18,7 +18,7 @@ public class p2Arrow {
     public p2Arrow(Context context, int screenX, int screenY, String color, int size) {
         x = screenX;
         y = screenY;
-        speed = 20;
+        speed = size/6;
 
         dotSize = size*2;
 
