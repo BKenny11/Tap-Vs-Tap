@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class GameView extends SurfaceView implements Runnable {
 
     private SoundPool mSoundPool;
-    AudioManager audioManager;
+    MediaPlayer mPlayer;
     int soundId1;
     int soundId2;
     int soundId3;
@@ -101,6 +101,11 @@ public class GameView extends SurfaceView implements Runnable {
         soundId9 = mSoundPool.load(context, R.raw.fnote2, 1);
         soundId10 = mSoundPool.load(context, R.raw.gnote2, 1);
 
+
+       mPlayer = MediaPlayer.create(context, R.raw.background); // in 2nd param u have to pass your desire ringtone
+        //mPlayer.prepare();
+
+
         screenX = x;
         screenY = y;
 
@@ -143,6 +148,7 @@ public class GameView extends SurfaceView implements Runnable {
         p1Turn = true;
         p2Turn = false;
 
+        mPlayer.start();
     }
 
     @Override
