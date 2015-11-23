@@ -19,6 +19,7 @@ import android.view.SurfaceView;
 import android.media.SoundPool;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class GameView extends SurfaceView implements Runnable {
 
@@ -68,6 +69,8 @@ public class GameView extends SurfaceView implements Runnable {
     private int xPixel;
     private int yPixel;
 
+    private int Lives;
+
     private int distBetween;
     private int dotSize;
     private int screenMargin;
@@ -83,9 +86,10 @@ public class GameView extends SurfaceView implements Runnable {
     // For saving and loading the high score
     private SharedPreferences prefs;
 
-    GameView(Context context, int x, int y) {
+    GameView(Context context, int x, int y, int numLives) {
         super(context);
         this.context  = context;
+
 
         mSoundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
 
@@ -105,6 +109,7 @@ public class GameView extends SurfaceView implements Runnable {
        mPlayer = MediaPlayer.create(context, R.raw.background); // in 2nd param u have to pass your desire ringtone
         //mPlayer.prepare();
 
+        Lives = numLives;
 
         screenX = x;
         screenY = y;
@@ -138,8 +143,8 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void startGame(){
         gameEnd = false;
-        p1Lives = 3;
-        p2Lives = 3;
+        p1Lives = Lives;
+        p2Lives = Lives;
 
         roundCount = 1;
         p1ArrowsLeft = roundCount;

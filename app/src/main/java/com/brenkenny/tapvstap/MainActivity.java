@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
             // This is the entry point to our game
             @Override
             protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences prefs;
                 SharedPreferences.Editor editor;
                 prefs = getSharedPreferences("HiScores", MODE_PRIVATE);
+
+
 
                 // Load fastest time
                 // if not available our high score = 1000000
@@ -57,7 +60,11 @@ public class MainActivity extends AppCompatActivity {
                 // Create a new Intent object
                  Intent i = new Intent(this, SettingsActivity.class);
                 // Start our GameActivity class via the Intent
-                 startActivity(i);
+                startActivity(i);
                 finish();
             }
-        }
+
+
+
+
+}
