@@ -471,6 +471,7 @@ public class GameView extends SurfaceView implements Runnable {
     // Clean up our thread if the game is interrupted or the player quits
     public void pause() {
         playing = false;
+        mPlayer.pause();
         try {
             gameThread.join();
         } catch (InterruptedException e) {
@@ -483,6 +484,7 @@ public class GameView extends SurfaceView implements Runnable {
     // Execution moves to our R
     public void resume() {
         playing = true;
+        mPlayer.start();
         gameThread = new Thread(this);
         gameThread.start();
     }
