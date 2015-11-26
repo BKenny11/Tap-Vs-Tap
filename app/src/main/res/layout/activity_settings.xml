@@ -26,13 +26,6 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="About Page"
-        android:id="@+id/button2"
-        android:layout_above="@+id/button3" android:layout_centerHorizontal="true"
-        android:layout_marginBottom="91dp"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Play"
         android:id="@+id/button3" android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" android:onClick="close"/>
@@ -56,8 +49,8 @@
         android:layout_height="wrap_content"
         android:text="Power Ups"
         android:id="@+id/switch3"
-        android:layout_centerVertical="true" android:layout_alignRight="@+id/button2"
-        android:layout_alignEnd="@+id/button2"/>
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
