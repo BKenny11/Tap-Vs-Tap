@@ -106,8 +106,7 @@ public class GameView extends SurfaceView implements Runnable {
         soundId9 = mSoundPool.load(context, R.raw.fnote2, 1);
         soundId10 = mSoundPool.load(context, R.raw.gnote2, 1);
 
-
-       mPlayer = MediaPlayer.create(context, R.raw.background); // in 2nd param u have to pass your desire ringtone
+        mPlayer = MediaPlayer.create(context, R.raw.background); // in 2nd param u have to pass your desire ringtone
         //mPlayer.prepare();
 
         Lives = numLives;
@@ -234,9 +233,6 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawCircle(screenX - screenMargin, distBetween * 5, dotSize, paint);
 
             paint.setColor(Color.argb(255, 255, 255, 255));
-            paint.setTextSize(75f);
-
-
 
             paint.setTextSize(50f);
 
@@ -285,7 +281,8 @@ public class GameView extends SurfaceView implements Runnable {
                 paint.setColor(Color.argb(255, 255, 255, 255));
                 if(p1Lives == 0) {
                     canvas.drawText("Game Over : Player 2 Wins!!", screenX / 2 - 500, screenY / 2, paint);
-                }else if(p2Lives == 0){
+                }
+                else if(p2Lives == 0){
                     canvas.drawText("Game Over : Player 1 Wins!!", screenX / 2-500, screenY / 2, paint);
                 }
             }
@@ -310,38 +307,30 @@ public class GameView extends SurfaceView implements Runnable {
         // There are many different events in MotionEvent
         // We care about just 2 - for now.
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+
+
             // Has the player lifted there finger up?
             case MotionEvent.ACTION_UP:
-
                 //Nothing Here Yet
-
                 break;
 
             // Has the player touched the screen?
-            case MotionEvent.ACTION_DOWN:
-
+            case MotionEvent.ACTION_DOWN: //fall through
+            case MotionEvent.ACTION_POINTER_DOWN:
                 if(gameEnd!=true) {
+                    //Player 1 Buttons
+                    checkColorTapped(1, "blue", motionEvent);
+                    checkColorTapped(1, "red", motionEvent);
+                    checkColorTapped(1, "green", motionEvent);
+                    checkColorTapped(1, "yellow", motionEvent);
+                    checkColorTapped(1, "orange", motionEvent);
 
-
-
-                        //Player 1 Buttons
-                        checkColorTapped(1, "blue", motionEvent);
-                        checkColorTapped(1, "red", motionEvent);
-                        checkColorTapped(1, "green", motionEvent);
-                        checkColorTapped(1, "yellow", motionEvent);
-                        checkColorTapped(1, "orange", motionEvent);
-
-
-
-
-
-                        //Player 2 Buttons
-                        checkColorTapped(2, "blue", motionEvent);
-                        checkColorTapped(2, "red", motionEvent);
-                        checkColorTapped(2, "green", motionEvent);
-                        checkColorTapped(2, "yellow", motionEvent);
-                        checkColorTapped(2, "orange", motionEvent);
-
+                    //Player 2 Buttons
+                    checkColorTapped(2, "blue", motionEvent);
+                    checkColorTapped(2, "red", motionEvent);
+                    checkColorTapped(2, "green", motionEvent);
+                    checkColorTapped(2, "yellow", motionEvent);
+                    checkColorTapped(2, "orange", motionEvent);
                 }
                 if(gameEnd){
                     startGame();
@@ -352,6 +341,8 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     public void checkColorTapped(int playerNum, String color, MotionEvent motionEvent){
+
+        int pointerIndex = motionEvent.getActionIndex();
         int colorNum;
 
         switch(color){
@@ -374,7 +365,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         //Player1
         if(playerNum == 1){
-            if(screenMargin - dotSize < motionEvent.getX() && motionEvent.getX() < screenMargin + dotSize  &&  distBetween * colorNum - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * colorNum + dotSize){
+            if(screenMargin - dotSize < motionEvent.getX(pointerIndex) && motionEvent.getX(pointerIndex) < screenMargin + dotSize  &&  distBetween * colorNum - dotSize < motionEvent.getY(pointerIndex) && motionEvent.getY(pointerIndex) < distBetween * colorNum + dotSize){
                 if(p2Turn) {
                     for (int i = 0; i < p2ArrowList.size(); i++) {
                         if (screenMargin - dotSize < p2ArrowList.get(i).getX() + dotSize * 2/*?*/ && p2ArrowList.get(i).getX() < screenMargin + dotSize && distBetween * colorNum - dotSize < p2ArrowList.get(i).getY() + dotSize / 2 && p2ArrowList.get(i).getY() + dotSize / 2 < distBetween * colorNum + dotSize) {
@@ -382,9 +373,11 @@ public class GameView extends SurfaceView implements Runnable {
 
                             if (color == "blue") {
                                 mSoundPool.play(soundId1, 1, 1, 0, 0, 1);
-                            }else if (color == "red"){
+                            }
+                            else if (color == "red"){
                                 mSoundPool.play(soundId2, 1, 1, 0, 0, 1);
-                            }else if (color == "green"){
+                            }
+                            else if (color == "green"){
                                 mSoundPool.play(soundId3, 1, 1, 0, 0, 1);
                             }
                             else if (color == "yellow"){
@@ -406,9 +399,11 @@ public class GameView extends SurfaceView implements Runnable {
 
                     if (color == "blue") {
                         mSoundPool.play(soundId1, 1, 1, 0, 0, 1);
-                    }else if (color == "red"){
+                    }
+                    else if (color == "red"){
                         mSoundPool.play(soundId2, 1, 1, 0, 0, 1);
-                    }else if (color == "green"){
+                    }
+                    else if (color == "green"){
                         mSoundPool.play(soundId3, 1, 1, 0, 0, 1);
                     }
                     else if (color == "yellow"){
@@ -424,7 +419,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         //Player 2
         else{
-            if(screenX - (screenMargin + dotSize) < motionEvent.getX() && motionEvent.getX() < screenX - (screenMargin - dotSize)  &&  distBetween * colorNum - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * colorNum + dotSize) {
+            if(screenX - (screenMargin + dotSize) < motionEvent.getX(pointerIndex) && motionEvent.getX(pointerIndex) < screenX - (screenMargin - dotSize)  &&  distBetween * colorNum - dotSize < motionEvent.getY(pointerIndex) && motionEvent.getY(pointerIndex) < distBetween * colorNum + dotSize) {
                 if(p1Turn) {
                     for (int i = 0; i < p1ArrowList.size(); i++) {
                         if (screenX - (screenMargin + dotSize) < p1ArrowList.get(i).getX() + dotSize * 2/*?*/ && p1ArrowList.get(i).getX() < screenX - (screenMargin - dotSize) && distBetween * colorNum - dotSize < p1ArrowList.get(i).getY() + dotSize / 2 && p1ArrowList.get(i).getY() + dotSize / 2 < distBetween * colorNum + dotSize) {
@@ -432,9 +427,11 @@ public class GameView extends SurfaceView implements Runnable {
 
                             if (color == "blue") {
                                 mSoundPool.play(soundId6, 1, 1, 0, 0, 1);
-                            }else if (color == "red"){
+                            }
+                            else if (color == "red"){
                                 mSoundPool.play(soundId7, 1, 1, 0, 0, 1);
-                            }else if (color == "green"){
+                            }
+                            else if (color == "green"){
                                 mSoundPool.play(soundId8, 1, 1, 0, 0, 1);
                             }
                             else if (color == "yellow"){
@@ -456,9 +453,11 @@ public class GameView extends SurfaceView implements Runnable {
 
                     if (color == "blue") {
                         mSoundPool.play(soundId6, 1, 1, 0, 0, 1);
-                    }else if (color == "red"){
+                    }
+                    else if (color == "red"){
                         mSoundPool.play(soundId7, 1, 1, 0, 0, 1);
-                    }else if (color == "green"){
+                    }
+                    else if (color == "green"){
                         mSoundPool.play(soundId8, 1, 1, 0, 0, 1);
                     }
                     else if (color == "yellow"){
