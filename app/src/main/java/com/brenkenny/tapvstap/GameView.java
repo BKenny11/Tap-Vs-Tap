@@ -92,7 +92,6 @@ public class GameView extends SurfaceView implements Runnable {
         super(context);
         this.context  = context;
 
-
         mSoundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 0);
 
         soundId1 = mSoundPool.load(context, R.raw.cnote, 1);
@@ -125,12 +124,10 @@ public class GameView extends SurfaceView implements Runnable {
         screenMargin = (int)(dotSize * 3);
 
         life  = BitmapFactory.decodeResource(context.getResources(), R.drawable.life);
-        life = Bitmap.createScaledBitmap(life, dotSize/2, dotSize/2, true);
+        life = Bitmap.createScaledBitmap(life, dotSize / 2, dotSize / 2, true);
 
         background = BitmapFactory.decodeResource(context.getResources(), R.drawable.gameground);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, true);
-
-
 
         p1SpawnPointX = screenMargin - dotSize;
         p2SpawnPointX = screenX - screenMargin - dotSize;
@@ -212,17 +209,11 @@ public class GameView extends SurfaceView implements Runnable {
 
     private void draw() {
         if (ourHolder.getSurface().isValid()) {
-
-
-
             canvas = ourHolder.lockCanvas();
 
-
-
-            canvas.drawColor(Color.argb(255, 0, 0, 0));
+            canvas.drawBitmap(background, 0, 0, paint);
 
             paint.setColor(Color.argb(255, 0, 0, 255)); //blue
-            canvas.drawBitmap(background,0,0,paint);
             canvas.drawCircle(screenMargin, distBetween, dotSize, paint);
             canvas.drawCircle(screenX - screenMargin, distBetween, dotSize, paint);
 
