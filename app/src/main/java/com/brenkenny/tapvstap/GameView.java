@@ -370,6 +370,7 @@ public class GameView extends SurfaceView implements Runnable {
                     for (int i = 0; i < p2ArrowList.size(); i++) {
                         if (screenMargin - dotSize < p2ArrowList.get(i).getX() + dotSize * 2/*?*/ && p2ArrowList.get(i).getX() < screenMargin + dotSize && distBetween * colorNum - dotSize < p2ArrowList.get(i).getY() + dotSize / 2 && p2ArrowList.get(i).getY() + dotSize / 2 < distBetween * colorNum + dotSize) {
                             p2ArrowList.remove(i);
+                            hitDetected = true;
 
                             if (color == "blue") {
                                 mSoundPool.play(soundId1, 1, 1, 0, 0, 1);
@@ -389,6 +390,9 @@ public class GameView extends SurfaceView implements Runnable {
 
                             break; //prevent hitting multiple arrows at once
                         }
+                    }
+                    if(hitDetected == false){
+                        p1Lives--;
                     }
                 }
 
@@ -424,6 +428,7 @@ public class GameView extends SurfaceView implements Runnable {
                     for (int i = 0; i < p1ArrowList.size(); i++) {
                         if (screenX - (screenMargin + dotSize) < p1ArrowList.get(i).getX() + dotSize * 2/*?*/ && p1ArrowList.get(i).getX() < screenX - (screenMargin - dotSize) && distBetween * colorNum - dotSize < p1ArrowList.get(i).getY() + dotSize / 2 && p1ArrowList.get(i).getY() + dotSize / 2 < distBetween * colorNum + dotSize) {
                             p1ArrowList.remove(i);
+                            hitDetected = true;
 
                             if (color == "blue") {
                                 mSoundPool.play(soundId6, 1, 1, 0, 0, 1);
@@ -443,7 +448,9 @@ public class GameView extends SurfaceView implements Runnable {
 
                             break; //prevent hitting multiple arrows at once
                         }
-
+                    }
+                    if(hitDetected == false){
+                        p2Lives--;
                     }
                 }
                 else if (p2ArrowsLeft > 0){
