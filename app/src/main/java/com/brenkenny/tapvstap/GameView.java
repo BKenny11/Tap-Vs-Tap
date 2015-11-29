@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -19,12 +18,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.media.SoundPool;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class GameView extends SurfaceView implements Runnable {
 
