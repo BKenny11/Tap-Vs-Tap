@@ -186,7 +186,7 @@ public class GameView extends SurfaceView implements Runnable {
                 p1Lives--;
             }
         }
-        if(p1Lives == 0 || p2Lives == 0){
+        if(p1Lives < 1 || p2Lives < 1){
             p2ArrowList.clear();
             p1ArrowList.clear();
             gameEnd = true;
@@ -397,7 +397,7 @@ public class GameView extends SurfaceView implements Runnable {
                 }
 
                 else if(p1ArrowsLeft > 0){
-                    arrow = new p1Arrow(context, p1SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
+                    arrow = new p1Arrow(context, p1SpawnPointX, distBetween * colorNum - dotSize, color, dotSize, roundCount);
                     p1ArrowList.add(arrow);
                     p1ArrowsLeft--;
 
@@ -454,7 +454,7 @@ public class GameView extends SurfaceView implements Runnable {
                     }
                 }
                 else if (p2ArrowsLeft > 0){
-                    p2arrow = new p2Arrow(context, p2SpawnPointX, distBetween * colorNum - dotSize, color, dotSize);
+                    p2arrow = new p2Arrow(context, p2SpawnPointX, distBetween * colorNum - dotSize, color, dotSize, roundCount);
                     p2ArrowList.add(p2arrow);
                     p2ArrowsLeft--;
 

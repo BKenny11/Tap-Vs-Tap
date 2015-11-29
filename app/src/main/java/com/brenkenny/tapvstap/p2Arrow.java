@@ -11,20 +11,20 @@ public class p2Arrow {
     private Bitmap bitmap2;
     private Bitmap bitmap;
     private int x, y;
-    private int speed;
+    private float speed;
     private int dotSize;
 
     // Constructor
-    public p2Arrow(Context context, int screenX, int screenY, String color, int size) {
+    public p2Arrow(Context context, int screenX, int screenY, String color, int size, int round) {
         x = screenX;
         y = screenY;
-        speed = size/6;
-
+        speed = size/10 + size/70*round;
         dotSize = size*2;
 
         if(color == "blue") {
             bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.p2bluearrow);
-        }else if(color == "red") {
+        }
+        else if(color == "red") {
             bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.p2redarrow);
         }
         else if(color == "green") {
@@ -40,22 +40,23 @@ public class p2Arrow {
     }
 
     public void update() {
-        x = x - speed;
+        x = x - (int)speed;
     }
 
     //Getters
     public Bitmap getBitmap() {
-
         return bitmap;
     }
 
-    public int getSpeed() {
-
+    public float getSpeed() {
         return speed;
     }
 
-    public int getX() {
+    public void setSpeed(float newSpeed) {
+        speed = newSpeed;
+    }
 
+    public int getX() {
         return x;
     }
 
@@ -64,7 +65,6 @@ public class p2Arrow {
     }
 
     public int getY() {
-
         return y;
     }
 }

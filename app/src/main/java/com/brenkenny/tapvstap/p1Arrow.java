@@ -11,19 +11,19 @@ package com.brenkenny.tapvstap;
         private Bitmap bitmap2;
         private Bitmap bitmap;
         private int x, y;
-        private int speed;
+        private float speed;
         private int dotSize;
         // Constructor
-        public p1Arrow(Context context, int screenX, int screenY, String color, int size) {
+        public p1Arrow(Context context, int screenX, int screenY, String color, int size, int round) {
             x = screenX;
             y = screenY;
-            speed = size/6;
-
+            speed = size/10 + size/70*round;
             dotSize = size*2;
 
             if(color == "blue") {
                 bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.bluearrow);
-            }else if(color == "red") {
+            }
+            else if(color == "red") {
                 bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.redarrow);
             }
             else if(color == "green") {
@@ -39,22 +39,23 @@ package com.brenkenny.tapvstap;
         }
 
         public void update() {
-            x = x + speed;
+            x = x + (int)speed;
         }
 
         //Getters
         public Bitmap getBitmap() {
-
             return bitmap;
         }
 
-        public int getSpeed() {
-
+        public float getSpeed() {
             return speed;
         }
 
-        public int getX() {
+        public void setSpeed(float newSpeed) {
+            speed = newSpeed;
+        }
 
+        public int getX() {
             return x;
         }
 
@@ -63,7 +64,6 @@ package com.brenkenny.tapvstap;
         }
 
         public int getY() {
-
             return y;
         }
     }
