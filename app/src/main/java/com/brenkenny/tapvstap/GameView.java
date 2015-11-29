@@ -11,12 +11,17 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.media.SoundPool;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -57,6 +62,8 @@ public class GameView extends SurfaceView implements Runnable {
     private boolean p1Turn;
     private boolean p2Turn;
 
+    private float timeRemaining;
+
     private int p1ArrowsLeft;
     private int p2ArrowsLeft;
 
@@ -84,6 +91,7 @@ public class GameView extends SurfaceView implements Runnable {
     private Paint paint;
     private Canvas canvas;
     private SurfaceHolder ourHolder;
+    private RectF p1Time, p2Time;
 
     // For saving and loading the high score
     private SharedPreferences prefs;
@@ -131,6 +139,9 @@ public class GameView extends SurfaceView implements Runnable {
         p1SpawnPointX = screenMargin - dotSize;
         p2SpawnPointX = screenX - screenMargin - dotSize;
 
+        p1Time = new RectF(0, 0, 30, screenY);
+        p2Time = new RectF(screenX - 30, 0, screenX, screenY);
+
         p1Lives = 3;
         p2Lives = 3;
 
@@ -149,6 +160,7 @@ public class GameView extends SurfaceView implements Runnable {
         p2Lives = Lives;
 
         roundCount = 1;
+        timeRemaining = 210;
         p1ArrowsLeft = roundCount;
         p2ArrowsLeft = roundCount;
 
@@ -168,6 +180,8 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
+        timeRemaining--;
+
         for(int i = 0; i < p1ArrowList.size(); i++){
             p1Arrow mp1Arrow = p1ArrowList.get(i);
             mp1Arrow.update();
@@ -192,17 +206,27 @@ public class GameView extends SurfaceView implements Runnable {
             gameEnd = true;
         }
         
-        if (p1Turn && p1ArrowsLeft == 0 && p1ArrowList.size() == 0 ){
+        if (p1Turn && p1ArrowsLeft < 1 && p1ArrowList.size() < 1){
             p2Turn = true;
             p1Turn = false;
             roundCount++;
             p2ArrowsLeft = roundCount;
+            timeRemaining = 200 + roundCount * 10;
         }
-        else if (p2Turn && p2ArrowsLeft == 0 && p2ArrowList.size() == 0) {
+        else if (p2Turn && p2ArrowsLeft < 1 && p2ArrowList.size() < 1) {
             p1Turn = true;
             p2Turn = false;
             roundCount++;
             p1ArrowsLeft = roundCount;
+            timeRemaining = 200 + roundCount * 10;
+        }
+        if(timeRemaining < 1){
+            if(p1Turn){
+                p1ArrowsLeft = 0;
+            }
+            else{
+                p2ArrowsLeft = 0;
+            }
         }
     }
 
@@ -211,6 +235,15 @@ public class GameView extends SurfaceView implements Runnable {
             canvas = ourHolder.lockCanvas();
 
             canvas.drawBitmap(background, 0, 0, paint);
+
+            if(p1Turn){
+                p1Time.set(0, 0, 30, timeRemaining / (200 + roundCount * 10) * screenY); //decrease 4th param from screenY to 0
+                canvas.drawRect(p1Time, paint);
+            }
+            else{
+                p2Time.set(screenX - 30, (1 - timeRemaining / (200 + roundCount * 10)) * screenY, screenX, screenY); //increase 2nd param from 0 to screenY
+                canvas.drawRect(p2Time, paint);
+            }
 
             paint.setColor(Color.argb(255, 0, 0, 255)); //blue
             canvas.drawCircle(screenMargin, distBetween, dotSize, paint);
