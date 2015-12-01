@@ -250,7 +250,7 @@ public class GameView extends SurfaceView implements Runnable {
                     canvas.drawBitmap(life, 5*xPixel*i + 10, -5*yPixel, paint);
                 }
                 if(p1Turn) {
-                    canvas.drawText("FIRE!! ("+ p1ArrowsLeft+")", screenY / 2 - 5*xPixel, -2*yPixel, paint);
+                    canvas.drawText("FIRE!! ("+ p1ArrowsLeft+")", 0, -6*yPixel, paint);
                 }
 
                 canvas.restore();
@@ -264,13 +264,20 @@ public class GameView extends SurfaceView implements Runnable {
                     canvas.drawBitmap(life, -screenY + i*5*xPixel, screenX-5*yPixel, paint);
                 }
                 if(p2Turn) {
-                    canvas.drawText("FIRE!! ("+ p2ArrowsLeft+")", -screenY / 2 - 5*xPixel, screenX -2*yPixel, paint);
+                    canvas.drawText("FIRE!! ("+ p2ArrowsLeft+")", -screenY , screenX -6*yPixel, paint);
                 }
                 canvas.restore();
             }
             paint.setColor(Color.argb(255, 255, 255, 255)); //white
-            canvas.drawCircle(dotSize, distBetween, dotSize/2, paint);
-            canvas.drawCircle(screenX - dotSize, -distBetween, dotSize/2, paint);
+            canvas.drawCircle(dotSize, screenY-distBetween*1, dotSize / 2, paint);
+            canvas.drawCircle(dotSize, screenY-distBetween*2, dotSize/2, paint);
+            canvas.drawCircle(dotSize, screenY-distBetween*3, dotSize/2, paint);
+
+
+            canvas.drawCircle(screenX-dotSize, distBetween*1, dotSize/2, paint);
+            canvas.drawCircle(screenX-dotSize, distBetween*2, dotSize/2, paint);
+            canvas.drawCircle(screenX-dotSize, distBetween*3, dotSize/2, paint);
+            //canvas.drawCircle(screenX - dotSize, -distBetween, dotSize/2, paint);
 
             paint.setColor(Color.argb(255, 0, 0, 255)); //blue
             canvas.drawCircle(screenMargin, distBetween, dotSize, paint);
@@ -312,29 +319,29 @@ public class GameView extends SurfaceView implements Runnable {
             }
 
             if(gameEnd == true){
-                paint.setTextSize(75f);
+                paint.setTextSize(100f);
                 paint.setColor(Color.argb(255, 255, 255, 255));
                 if(p1Lives == 0) {
                     canvas.save();
                     canvas.rotate(90);
-                    canvas.drawText("You Lose!", screenY / 2 , -screenX / 2 , paint);
+                    canvas.drawText("You Lose!", screenY / 2 -dotSize , -screenX / 2 +dotSize*2, paint);
 
                     canvas.restore();
 
                     canvas.save();
                     canvas.rotate(-90);
-                    canvas.drawText("You Win!", -screenY / 2 , screenX / 2 , paint);
+                    canvas.drawText("You Win!", -screenY / 2 -dotSize , screenX / 2 +dotSize*2, paint);
                 }
                 else if(p2Lives == 0){
                     canvas.save();
                     canvas.rotate(90);
-                    canvas.drawText("You Win!", screenY / 2, -screenX / 2   , paint);
+                    canvas.drawText("You Win!", screenY / 2-dotSize, -screenX / 2 +dotSize*2   , paint);
 
                     canvas.restore();
 
                     canvas.save();
                     canvas.rotate(-90);
-                    canvas.drawText("You Lose!", -screenY / 2, screenX / 2 , paint);
+                    canvas.drawText("You Lose!", -screenY / 2 - dotSize, screenX / 2 +dotSize*2 , paint);
                 }
             }
 
