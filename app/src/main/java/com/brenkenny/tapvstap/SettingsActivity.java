@@ -39,7 +39,6 @@ public class SettingsActivity extends AppCompatActivity {
         i.putExtra(EXTRA_GAME_SOUNDS,soundEffects);
         i.putExtra(EXTRA_GAME_SPEED, "" + gameSpeed);
         startActivity(i);
-        //finish();
     }
 
     public void addLife(View view){

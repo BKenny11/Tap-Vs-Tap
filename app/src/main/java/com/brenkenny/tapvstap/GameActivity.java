@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 
 public class GameActivity extends Activity {
@@ -33,8 +34,10 @@ public class GameActivity extends Activity {
             lives = Integer.valueOf(intent.getStringExtra(SettingsActivity.EXTRA_GAME_LIVES));
             speed = Integer.valueOf(intent.getStringExtra(SettingsActivity.EXTRA_GAME_SPEED));
             powerups = intent.getBooleanExtra(SettingsActivity.EXTRA_GAME_POWERUPS, true);
-            music = intent.getBooleanExtra(SettingsActivity.EXTRA_GAME_MUSIC,true);
-            sounds = intent.getBooleanExtra(SettingsActivity.EXTRA_GAME_SOUNDS,true);
+            music = intent.getBooleanExtra(SettingsActivity.EXTRA_GAME_MUSIC, true);
+            sounds = intent.getBooleanExtra(SettingsActivity.EXTRA_GAME_SOUNDS, true);
+
+
 
         }else {
             lives = 3;

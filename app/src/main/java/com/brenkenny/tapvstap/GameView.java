@@ -14,6 +14,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -169,7 +170,9 @@ public class GameView extends SurfaceView implements Runnable {
         p1Turn = true;
         p2Turn = false;
 
-        mPlayer.start();
+        if(BackgroundMusic == true) {
+            mPlayer.start();
+        }
     }
 
     @Override
@@ -251,8 +254,6 @@ public class GameView extends SurfaceView implements Runnable {
                 //P1 UI
                 canvas.save();
                 canvas.rotate(90);
-                //canvas.drawText("Lives:", 10, -6*yPixel, paint);
-                //canvas.drawText("Round: "+roundCount,screenY-20*yPixel,-yPixel,paint);
                 for (int i = 0; i < p1Lives; i++) {
                     canvas.drawBitmap(life, 5 * xPixel * i + 10, -5 * yPixel, paint);
                 }
@@ -265,8 +266,6 @@ public class GameView extends SurfaceView implements Runnable {
                 //P2 UI
                 canvas.save();
                 canvas.rotate(-90);
-                //canvas.drawText("Lives: ", -screenY, screenX-80, paint);
-                // canvas.drawText("Round: "+roundCount,-screenY+80*yPixel,screenX-xPixel,paint);
                 for (int i = 0; i < p2Lives; i++) {
                     canvas.drawBitmap(life, -screenY + i * 5 * xPixel, screenX - 5 * yPixel, paint);
                 }
@@ -452,22 +451,19 @@ public class GameView extends SurfaceView implements Runnable {
                             p2ArrowList.remove(i);
                             hitDetected = true;
 
-                            if (color == "blue") {
-                                mSoundPool.play(soundId1, 1, 1, 0, 0, 1);
+                            if(SoundEffects == true) {
+                                if (color == "blue") {
+                                    mSoundPool.play(soundId1, 1, 1, 0, 0, 1);
+                                } else if (color == "red") {
+                                    mSoundPool.play(soundId2, 1, 1, 0, 0, 1);
+                                } else if (color == "green") {
+                                    mSoundPool.play(soundId3, 1, 1, 0, 0, 1);
+                                } else if (color == "yellow") {
+                                    mSoundPool.play(soundId4, 1, 1, 0, 0, 1);
+                                } else if (color == "orange") {
+                                    mSoundPool.play(soundId5, 1, 1, 0, 0, 1);
+                                }
                             }
-                            else if (color == "red"){
-                                mSoundPool.play(soundId2, 1, 1, 0, 0, 1);
-                            }
-                            else if (color == "green"){
-                                mSoundPool.play(soundId3, 1, 1, 0, 0, 1);
-                            }
-                            else if (color == "yellow"){
-                                mSoundPool.play(soundId4, 1, 1, 0, 0, 1);
-                            }
-                            else if (color == "orange"){
-                                mSoundPool.play(soundId5, 1, 1, 0, 0, 1);
-                            }
-
                             break; //prevent hitting multiple arrows at once
                         }
                     }
@@ -480,22 +476,20 @@ public class GameView extends SurfaceView implements Runnable {
                     arrow = new p1Arrow(context, p1SpawnPointX, distBetween * colorNum - dotSize, color, dotSize, roundCount);
                     p1ArrowList.add(arrow);
                     p1ArrowsLeft--;
+                    if (SoundEffects == true) {
+                        if (color == "blue") {
+                            mSoundPool.play(soundId1, 1, 1, 0, 0, 1);
+                        } else if (color == "red") {
+                            mSoundPool.play(soundId2, 1, 1, 0, 0, 1);
+                        } else if (color == "green") {
+                            mSoundPool.play(soundId3, 1, 1, 0, 0, 1);
+                        } else if (color == "yellow") {
+                            mSoundPool.play(soundId4, 1, 1, 0, 0, 1);
+                        } else if (color == "orange") {
+                            mSoundPool.play(soundId5, 1, 1, 0, 0, 1);
+                        }
+                    }
 
-                    if (color == "blue") {
-                        mSoundPool.play(soundId1, 1, 1, 0, 0, 1);
-                    }
-                    else if (color == "red"){
-                        mSoundPool.play(soundId2, 1, 1, 0, 0, 1);
-                    }
-                    else if (color == "green"){
-                        mSoundPool.play(soundId3, 1, 1, 0, 0, 1);
-                    }
-                    else if (color == "yellow"){
-                        mSoundPool.play(soundId4, 1, 1, 0, 0, 1);
-                    }
-                    else if (color == "orange"){
-                        mSoundPool.play(soundId5, 1, 1, 0, 0, 1);
-                    }
                 }
             }
 
@@ -510,22 +504,19 @@ public class GameView extends SurfaceView implements Runnable {
                             p1ArrowList.remove(i);
                             hitDetected = true;
 
-                            if (color == "blue") {
-                                mSoundPool.play(soundId6, 1, 1, 0, 0, 1);
+                            if (SoundEffects == true) {
+                                if (color == "blue") {
+                                    mSoundPool.play(soundId6, 1, 1, 0, 0, 1);
+                                } else if (color == "red") {
+                                    mSoundPool.play(soundId7, 1, 1, 0, 0, 1);
+                                } else if (color == "green") {
+                                    mSoundPool.play(soundId8, 1, 1, 0, 0, 1);
+                                } else if (color == "yellow") {
+                                    mSoundPool.play(soundId9, 1, 1, 0, 0, 1);
+                                } else if (color == "orange") {
+                                    mSoundPool.play(soundId10, 1, 1, 0, 0, 1);
+                                }
                             }
-                            else if (color == "red"){
-                                mSoundPool.play(soundId7, 1, 1, 0, 0, 1);
-                            }
-                            else if (color == "green"){
-                                mSoundPool.play(soundId8, 1, 1, 0, 0, 1);
-                            }
-                            else if (color == "yellow"){
-                                mSoundPool.play(soundId9, 1, 1, 0, 0, 1);
-                            }
-                            else if (color == "orange"){
-                                mSoundPool.play(soundId10, 1, 1, 0, 0, 1);
-                            }
-
                             break; //prevent hitting multiple arrows at once
                         }
                     }
@@ -538,20 +529,18 @@ public class GameView extends SurfaceView implements Runnable {
                     p2ArrowList.add(p2arrow);
                     p2ArrowsLeft--;
 
-                    if (color == "blue") {
-                        mSoundPool.play(soundId6, 1, 1, 0, 0, 1);
-                    }
-                    else if (color == "red"){
-                        mSoundPool.play(soundId7, 1, 1, 0, 0, 1);
-                    }
-                    else if (color == "green"){
-                        mSoundPool.play(soundId8, 1, 1, 0, 0, 1);
-                    }
-                    else if (color == "yellow"){
-                        mSoundPool.play(soundId9, 1, 1, 0, 0, 1);
-                    }
-                    else if (color == "orange"){
-                        mSoundPool.play(soundId10, 1, 1, 0, 0, 1);
+                    if(SoundEffects == true) {
+                        if (color == "blue") {
+                            mSoundPool.play(soundId6, 1, 1, 0, 0, 1);
+                        } else if (color == "red") {
+                            mSoundPool.play(soundId7, 1, 1, 0, 0, 1);
+                        } else if (color == "green") {
+                            mSoundPool.play(soundId8, 1, 1, 0, 0, 1);
+                        } else if (color == "yellow") {
+                            mSoundPool.play(soundId9, 1, 1, 0, 0, 1);
+                        } else if (color == "orange") {
+                            mSoundPool.play(soundId10, 1, 1, 0, 0, 1);
+                        }
                     }
                 }
             }
@@ -574,7 +563,9 @@ public class GameView extends SurfaceView implements Runnable {
     // Execution moves to our R
     public void resume() {
         playing = true;
-        mPlayer.start();
+        if(BackgroundMusic == true) {
+            mPlayer.start();
+        }
         gameThread = new Thread(this);
         gameThread.start();
     }
