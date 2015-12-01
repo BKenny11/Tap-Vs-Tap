@@ -39,14 +39,13 @@ public class GameActivity extends Activity {
 
 
 
-        }else {
-            lives = 3;
+        }
+        else {
+            lives = 10;
             speed = 1;
             powerups = true;
             music = true;
             sounds = true;
-
-
         }
 
         // Create an instance of our Tappy Defender View
