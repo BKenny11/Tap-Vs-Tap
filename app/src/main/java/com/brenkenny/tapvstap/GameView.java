@@ -312,30 +312,35 @@ public class GameView extends SurfaceView implements Runnable {
             }
 
             if(gameEnd == true){
-                paint.setTextSize(75f);
-                paint.setColor(Color.argb(255, 255, 255, 255));
+                paint.setTextSize(300f);
+
                 if(p1Lives == 0) {
                     canvas.save();
                     canvas.rotate(90);
-                    canvas.drawText("You Lose!", screenY / 2 , -screenX / 2 , paint);
+                    paint.setColor(Color.argb(255, 255, 0, 0));
+                    canvas.drawText("LOSE", screenY / 2 - 360, -screenX / 4, paint);
 
                     canvas.restore();
 
                     canvas.save();
                     canvas.rotate(-90);
-                    canvas.drawText("You Win!", -screenY / 2 , screenX / 2 , paint);
+                    paint.setColor(Color.argb(255, 0, 255, 0));
+                    canvas.drawText("WIN", -screenY / 2 - 280, screenX * 0.75f, paint);
                 }
                 else if(p2Lives == 0){
                     canvas.save();
                     canvas.rotate(90);
-                    canvas.drawText("You Win!", screenY / 2, -screenX / 2   , paint);
+                    paint.setColor(Color.argb(255, 0, 255, 0));
+                    canvas.drawText("WIN", screenY / 2 - 280, -screenX / 4, paint);
 
                     canvas.restore();
 
                     canvas.save();
                     canvas.rotate(-90);
-                    canvas.drawText("You Lose!", -screenY / 2, screenX / 2 , paint);
+                    paint.setColor(Color.argb(255, 255, 0, 0));
+                    canvas.drawText("LOSE", -screenY / 2 - 360, screenX * 0.75f, paint);
                 }
+                paint.setStyle(Paint.Style.FILL);
             }
 
             // Unlock and draw the scene
