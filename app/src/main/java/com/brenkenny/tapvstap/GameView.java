@@ -74,6 +74,10 @@ public class GameView extends SurfaceView implements Runnable {
     private int yPixel;
 
     private int Lives;
+    private Boolean Powerups;
+    private int Speed;
+    private Boolean BackgroundMusic;
+    private Boolean SoundEffects;
 
     private int distBetween;
     private int dotSize;
@@ -91,7 +95,7 @@ public class GameView extends SurfaceView implements Runnable {
     // For saving and loading the high score
     private SharedPreferences prefs;
 
-    GameView(Context context, int x, int y, int numLives) {
+    GameView(Context context, int x, int y, int numLives, boolean powerups, boolean music, boolean sounds, int speed) {
         super(context);
         this.context  = context;
 
@@ -109,10 +113,13 @@ public class GameView extends SurfaceView implements Runnable {
         soundId9 = mSoundPool.load(context, R.raw.fnote2, 1);
         soundId10 = mSoundPool.load(context, R.raw.gnote2, 1);
 
-        mPlayer = MediaPlayer.create(context, R.raw.background); // in 2nd param u have to pass your desire ringtone
-        //mPlayer.prepare();
+        mPlayer = MediaPlayer.create(context, R.raw.background);
 
         Lives = numLives;
+        Powerups = powerups;
+        Speed = speed;
+        BackgroundMusic = music;
+        SoundEffects = sounds;
 
         screenX = x;
         screenY = y;
@@ -268,16 +275,20 @@ public class GameView extends SurfaceView implements Runnable {
                 }
                 canvas.restore();
             }
-            paint.setColor(Color.argb(255, 255, 255, 255)); //white
-            canvas.drawCircle(dotSize, screenY - distBetween * 1, dotSize / 2, paint);
-            canvas.drawCircle(dotSize, screenY - distBetween * 2, dotSize / 2, paint);
-            canvas.drawCircle(dotSize, screenY - distBetween * 3, dotSize / 2, paint);
+
+            if (Powerups == true) {
+                paint.setColor(Color.argb(255, 255, 255, 255)); //white
+                canvas.drawCircle(dotSize, screenY - distBetween * 1, dotSize / 2, paint);
+                canvas.drawCircle(dotSize, screenY - distBetween * 2, dotSize / 2, paint);
+                canvas.drawCircle(dotSize, screenY - distBetween * 3, dotSize / 2, paint);
 
 
-            canvas.drawCircle(screenX - dotSize, distBetween * 1, dotSize / 2, paint);
-            canvas.drawCircle(screenX - dotSize, distBetween * 2, dotSize / 2, paint);
-            canvas.drawCircle(screenX - dotSize, distBetween * 3, dotSize / 2, paint);
-            //canvas.drawCircle(screenX - dotSize, -distBetween, dotSize/2, paint);
+                canvas.drawCircle(screenX - dotSize, distBetween * 1, dotSize / 2, paint);
+                canvas.drawCircle(screenX - dotSize, distBetween * 2, dotSize / 2, paint);
+                canvas.drawCircle(screenX - dotSize, distBetween * 3, dotSize / 2, paint);
+                //canvas.drawCircle(screenX - dotSize, -distBetween, dotSize/2, paint);
+            }
+
 
             paint.setColor(Color.argb(255, 0, 0, 255)); //blue
             canvas.drawCircle(screenMargin, distBetween, dotSize, paint);

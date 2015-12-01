@@ -33,22 +33,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Background Music"
-        android:id="@+id/switch1"
+        android:id="@+id/BackgroundMusicSwitch"
+        android:onClick="changeBackgroundSound"
         android:layout_marginTop="51dp" android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" android:checked="true" android:clickable="true"/>
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sound Effects"
-        android:id="@+id/switch2"
+        android:id="@+id/SoundEffectsSwitch"
         android:layout_marginTop="33dp"
-        android:layout_below="@+id/switch1"
-        android:layout_centerHorizontal="true"/>
+        android:onClick="changeSoundEffects"
+        android:layout_below="@+id/BackgroundMusicSwitch"
+        android:layout_centerHorizontal="true" android:checked="true"/>
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Power Ups"
-        android:id="@+id/switch3"
+        android:id="@+id/PowerupSwitch"
+        android:checked="true"
+        android:onClick="changePowerups"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
     <Button
@@ -57,8 +61,8 @@
         android:layout_height="wrap_content"
         android:text="+"
         android:id="@+id/button4"
-        android:layout_below="@+id/textView2" android:layout_alignRight="@+id/switch1"
-        android:layout_alignEnd="@+id/switch1"/>
+        android:layout_below="@+id/textView2" android:layout_alignRight="@+id/BackgroundMusicSwitch"
+        android:layout_alignEnd="@+id/BackgroundMusicSwitch"/>
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
