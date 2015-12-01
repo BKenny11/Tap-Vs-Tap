@@ -231,14 +231,46 @@ public class GameView extends SurfaceView implements Runnable {
 
             canvas.drawBitmap(background, 0, 0, paint);
 
-            if(p1Turn){
-                p1Time.set(0, 0, 30, timeRemaining / (200 + roundCount * 10) * screenY); //decrease 4th param from screenY to 0
-                canvas.drawRect(p1Time, paint);
+            if(gameEnd != true) {
+                if (p1Turn) {
+                    p1Time.set(0, 0, 30, timeRemaining / (200 + roundCount * 10) * screenY); //decrease 4th param from screenY to 0
+                    canvas.drawRect(p1Time, paint);
+                } else {
+                    p2Time.set(screenX - 30, (1 - timeRemaining / (200 + roundCount * 10)) * screenY, screenX, screenY); //increase 2nd param from 0 to screenY
+                    canvas.drawRect(p2Time, paint);
+                }
+
+
+                //P1 UI
+                canvas.save();
+                canvas.rotate(90);
+                //canvas.drawText("Lives:", 10, -6*yPixel, paint);
+                //canvas.drawText("Round: "+roundCount,screenY-20*yPixel,-yPixel,paint);
+                for (int i= 0; i<p1Lives; i++) {
+                    canvas.drawBitmap(life, 5*xPixel*i + 10, -5*yPixel, paint);
+                }
+                if(p1Turn) {
+                    canvas.drawText("FIRE!! ("+ p1ArrowsLeft+")", screenY / 2 - 5*xPixel, -2*yPixel, paint);
+                }
+
+                canvas.restore();
+
+                //P2 UI
+                canvas.save();
+                canvas.rotate(-90);
+                //canvas.drawText("Lives: ", -screenY, screenX-80, paint);
+                // canvas.drawText("Round: "+roundCount,-screenY+80*yPixel,screenX-xPixel,paint);
+                for (int i= 0; i<p2Lives; i++) {
+                    canvas.drawBitmap(life, -screenY + i*5*xPixel, screenX-5*yPixel, paint);
+                }
+                if(p2Turn) {
+                    canvas.drawText("FIRE!! ("+ p2ArrowsLeft+")", -screenY / 2 - 5*xPixel, screenX -2*yPixel, paint);
+                }
+                canvas.restore();
             }
-            else{
-                p2Time.set(screenX - 30, (1 - timeRemaining / (200 + roundCount * 10)) * screenY, screenX, screenY); //increase 2nd param from 0 to screenY
-                canvas.drawRect(p2Time, paint);
-            }
+            paint.setColor(Color.argb(255, 255, 255, 255)); //white
+            canvas.drawCircle(dotSize, distBetween, dotSize/2, paint);
+            canvas.drawCircle(screenX - dotSize, -distBetween, dotSize/2, paint);
 
             paint.setColor(Color.argb(255, 0, 0, 255)); //blue
             canvas.drawCircle(screenMargin, distBetween, dotSize, paint);
@@ -264,32 +296,7 @@ public class GameView extends SurfaceView implements Runnable {
 
             paint.setTextSize(50f);
 
-            //P1 UI
-            canvas.save();
-                canvas.rotate(90);
-                canvas.drawText("Lives:", 10, -6*yPixel, paint);
-                canvas.drawText("Round: "+roundCount,screenY-20*yPixel,-yPixel,paint);
-            for (int i= 0; i<p1Lives; i++) {
-                canvas.drawBitmap(life, 5*xPixel*i + 10, -5*yPixel, paint);
-            }
-            if(p1Turn) {
-                canvas.drawText("FIRE!! ("+ p1ArrowsLeft+")", screenY / 2 - 5*xPixel, -2*yPixel, paint);
-            }
 
-            canvas.restore();
-
-            //P2 UI
-            canvas.save();
-                canvas.rotate(-90);
-                canvas.drawText("Lives: ", -screenY, screenX-70, paint);
-                canvas.drawText("Round: "+roundCount,-screenY+80*yPixel,screenX-xPixel,paint);
-            for (int i= 0; i<p2Lives; i++) {
-                canvas.drawBitmap(life, -screenY + i*5*xPixel, screenX-5*yPixel, paint);
-            }
-            if(p2Turn) {
-                canvas.drawText("FIRE!! ("+ p2ArrowsLeft+")", -screenY / 2 - 5*xPixel, screenX -2*yPixel, paint);
-            }
-            canvas.restore();
 
             //Player1 Pressed
             for(int i = 0; i < p1ArrowList.size(); i++){
@@ -308,10 +315,26 @@ public class GameView extends SurfaceView implements Runnable {
                 paint.setTextSize(75f);
                 paint.setColor(Color.argb(255, 255, 255, 255));
                 if(p1Lives == 0) {
-                    canvas.drawText("Game Over : Player 2 Wins!!", screenX / 2 - 500, screenY / 2, paint);
+                    canvas.save();
+                    canvas.rotate(90);
+                    canvas.drawText("You Lose!", screenY / 2 , -screenX / 2 , paint);
+
+                    canvas.restore();
+
+                    canvas.save();
+                    canvas.rotate(-90);
+                    canvas.drawText("You Win!", -screenY / 2 , screenX / 2 , paint);
                 }
                 else if(p2Lives == 0){
-                    canvas.drawText("Game Over : Player 1 Wins!!", screenX / 2-500, screenY / 2, paint);
+                    canvas.save();
+                    canvas.rotate(90);
+                    canvas.drawText("You Win!", screenY / 2, -screenX / 2   , paint);
+
+                    canvas.restore();
+
+                    canvas.save();
+                    canvas.rotate(-90);
+                    canvas.drawText("You Lose!", -screenY / 2, screenX / 2 , paint);
                 }
             }
 
