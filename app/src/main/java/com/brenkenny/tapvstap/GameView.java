@@ -464,8 +464,6 @@ public class GameView extends SurfaceView implements Runnable {
                     checkColorTapped(2, "yellow", motionEvent);
                     checkColorTapped(2, "orange", motionEvent);
 
-
-
                     for (int i= 1; i < 4;i++) {
                         //Detect player1 powerups touched
                         if (dotSize * .8f - dotSize < motionEvent.getX() && motionEvent.getX() < dotSize * .8f + dotSize && screenY -  distBetween * i * 0.5f - dotSize < motionEvent.getY() && motionEvent.getY() < screenY - distBetween * i * 0.5f + dotSize) {
@@ -473,7 +471,6 @@ public class GameView extends SurfaceView implements Runnable {
                             if (p1Turn && p1powerup1 == true && i == 1){
                                 curtain = true;
                                 p1powerup1 = false;
-
                             }
                             if (p1Turn && p1powerup2 == true && i == 2){
                                 speedup = true;
@@ -482,11 +479,9 @@ public class GameView extends SurfaceView implements Runnable {
                             }
                             if (p1Turn && p1ArrowsLeft != 0 && p1powerup3 == true && i == 3){
                                 doublearrows = true;
-                                p1ArrowsLeft = p1ArrowsLeft*2;
+                                p1ArrowsLeft += roundCount;
                                 p1powerup3 = false;
-
                             }
-
                         }
 
                         else if (screenX - dotSize * 1.6f - dotSize < motionEvent.getX() && motionEvent.getX() < screenX - dotSize * 1.6f + dotSize && distBetween * i * 0.75f - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * i * 0.75f + dotSize) {
@@ -494,28 +489,20 @@ public class GameView extends SurfaceView implements Runnable {
                             if (p2Turn && p2powerup1 == true && i == 1){
                                 curtain = true;
                                 p2powerup1 = false;
-
                             }
 
                             if (p2Turn && p2powerup2 == true && i == 2){
                                 speedup = true;
                                 p2powerup2 = false;
-
                             }
 
                             if (p2Turn && p2ArrowsLeft != 0 && p2powerup3 == true && i == 3){
                                 doublearrows = true;
-                                p2ArrowsLeft = p2ArrowsLeft*2;
+                                p2ArrowsLeft += roundCount;
                                 p2powerup3 = false;
-
                             }
-
                         }
-
                     }
-
-
-
                 }
                 if(gameEnd){
                     startGame();
