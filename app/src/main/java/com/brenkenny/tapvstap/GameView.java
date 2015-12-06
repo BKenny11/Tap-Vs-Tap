@@ -171,8 +171,8 @@ public class GameView extends SurfaceView implements Runnable {
         p1ArrowsLeft = roundCount;
         p2ArrowsLeft = roundCount;
 
-        p1Life.set(0, 0, 30, screenY);
-        p2Life.set(screenX - 30, 0, screenX, screenY);
+        p1Life.set(0, 0, screenX,30 );
+        p2Life.set(screenX,screenY - 30, 0, screenY);
 
         p1Turn = true;
         p2Turn = false;
@@ -194,6 +194,9 @@ public class GameView extends SurfaceView implements Runnable {
     private void update() {
         timeRemaining--;
 
+
+
+
         for(int i = 0; i < p1ArrowList.size(); i++){
             p1Arrow mp1Arrow = p1ArrowList.get(i);
             mp1Arrow.update();
@@ -201,7 +204,7 @@ public class GameView extends SurfaceView implements Runnable {
             if (mp1Arrow.getX() > screenX + 100) {
                 p1ArrowList.remove(i);
                 p2Lives--;
-                p2Life.set(screenX - 30, (1 - (float)p2Lives/lives) * screenY, screenX, screenY);
+                p2Life.set((1 - (float)p2Lives/lives) * screenX - 30, screenY - 30, screenX, screenY);
             }
         }
         for(int i = 0; i < p2ArrowList.size(); i++){
@@ -211,7 +214,7 @@ public class GameView extends SurfaceView implements Runnable {
             if (mp2Arrow.getX() < -100) {
                 p2ArrowList.remove(i);
                 p1Lives--;
-                p1Life.set(0, 0, 30, (float)p1Lives/lives * screenY);
+                p1Life.set(0, 0, (float)p1Lives/lives * screenX, 30);
             }
         }
         if(p1Lives < 1 || p2Lives < 1){
@@ -254,11 +257,11 @@ public class GameView extends SurfaceView implements Runnable {
 
                 paint.setColor(Color.argb(255, 255, 0, 0));
 
-                if(p2Turn) {
+
                     canvas.drawRect(p1Life, paint);
-                }else if (p1Turn) {
+
                     canvas.drawRect(p2Life, paint);
-                }
+
                 paint.setColor(Color.argb(255, 255, 255, 255));
                 if (p1Turn && p1ArrowsLeft != 0) {
                     p1Time.set(0, 0, 30, timeRemaining / (200 + roundCount * 10) * screenY); //decrease 4th param from screenY to 0
@@ -473,7 +476,8 @@ public class GameView extends SurfaceView implements Runnable {
                     }
                     if(hitDetected == false){
                         p1Lives--;
-                        p1Life.set(0, 0, 30, (float)p1Lives/lives * screenY);
+                        //p1Life.set(0, 0, 30, (float)p1Lives/lives * screenY);
+                        p1Life.set(0, 0, (float)p1Lives/lives * screenX, 30);
                     }
                 }
 
@@ -527,7 +531,8 @@ public class GameView extends SurfaceView implements Runnable {
                     }
                     if(hitDetected == false){
                         p2Lives--;
-                        p2Life.set(screenX - 30, (1 - (float)p2Lives/lives) * screenY, screenX, screenY);
+                       // p2Life.set(screenX - 30, (1 - (float)p2Lives/lives) * screenY, screenX, screenY);
+                        p2Life.set((1 - (float)p2Lives/lives) * screenX - 30, screenY - 30, screenX, screenY);
                     }
                 }
                 else if (p2ArrowsLeft > 0){
