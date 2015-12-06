@@ -73,6 +73,19 @@ public class GameView extends SurfaceView implements Runnable {
     private int screenX;
     private int screenY;
 
+    private boolean p1powerup1;
+    private boolean p1powerup2;
+    private boolean p1powerup3;
+
+    private boolean p2powerup1;
+    private boolean p2powerup2;
+    private boolean p2powerup3;
+
+    private boolean curtain;
+    private boolean speedup;
+    private boolean doublearrows;
+
+
     private int xPixel;
     private int yPixel;
 
@@ -158,6 +171,10 @@ public class GameView extends SurfaceView implements Runnable {
         p1Lives = 10;
         p2Lives = 10;
 
+        doublearrows = false;
+        curtain = false;
+        speedup = false;
+
         // Initialize our drawing objects
         ourHolder = getHolder();
         paint = new Paint();
@@ -171,6 +188,14 @@ public class GameView extends SurfaceView implements Runnable {
         gameEnd = false;
         p1Lives = lives;
         p2Lives = lives;
+
+        p1powerup1 = true;
+        p1powerup2 = true;
+        p1powerup3 = true;
+
+        p2powerup1 = true;
+        p2powerup2 = true;
+        p2powerup3 = true;
 
         roundCount = 1;
         timeRemaining = 210;
@@ -229,6 +254,9 @@ public class GameView extends SurfaceView implements Runnable {
         if (p1Turn && p1ArrowsLeft < 1 && p1ArrowList.size() < 1){
             p2Turn = true;
             p1Turn = false;
+            curtain = false;
+            speedup = false;
+            doublearrows = false;
             roundCount++;
             p2ArrowsLeft = roundCount;
             timeRemaining = 200 + roundCount * 10;
@@ -236,6 +264,9 @@ public class GameView extends SurfaceView implements Runnable {
         else if (p2Turn && p2ArrowsLeft < 1 && p2ArrowList.size() < 1) {
             p1Turn = true;
             p2Turn = false;
+            curtain = false;
+            speedup = false;
+            doublearrows = false;
             roundCount++;
             p1ArrowsLeft = roundCount;
             timeRemaining = 200 + roundCount * 10;
@@ -289,27 +320,6 @@ public class GameView extends SurfaceView implements Runnable {
                 canvas.restore();
             }
 
-            if (Powerups == true) {
-                paint.setColor(Color.argb(255, 255, 255, 255));
-//                canvas.drawCircle(dotSize * 1.2f, screenY - distBetween * 0.5f, dotSize / 2, paint);
-//                canvas.drawCircle(dotSize * 1.2f, screenY - distBetween * 1.25f, dotSize / 2, paint);
-//                canvas.drawCircle(dotSize * 1.2f, screenY - distBetween * 2.0f, dotSize / 2, paint);
-//
-//                canvas.drawCircle(screenX - dotSize * 1.2f, distBetween * 0.5f, dotSize / 2, paint);
-//                canvas.drawCircle(screenX - dotSize * 1.2f, distBetween * 1.25f, dotSize / 2, paint);
-//                canvas.drawCircle(screenX - dotSize * 1.2f, distBetween * 2.0f, dotSize / 2, paint);
-
-
-                canvas.drawBitmap(powerup1, dotSize * .8f, screenY - distBetween * 0.5f, paint);
-                canvas.drawBitmap(powerup2,dotSize * .8f, screenY - distBetween * 1.25f, paint);
-                canvas.drawBitmap(powerup3,dotSize * .8f, screenY - distBetween * 2.0f, paint);
-
-                canvas.drawBitmap(powerup1,screenX - dotSize * 1.6f, distBetween * 0.5f, paint);
-                canvas.drawBitmap(powerup2, screenX - dotSize * 1.6f, distBetween * 1.25f, paint);
-                canvas.drawBitmap(powerup3,screenX - dotSize * 1.6f, distBetween * 2.0f, paint);
-
-            }
-
             paint.setColor(Color.argb(255, 0, 0, 255)); //blue
             canvas.drawCircle(screenMargin, distBetween, dotSize, paint);
             canvas.drawCircle(screenX - screenMargin, distBetween, dotSize, paint);
@@ -345,6 +355,26 @@ public class GameView extends SurfaceView implements Runnable {
                 p2Arrow mp2Arrow = p2ArrowList.get(i);
                 canvas.drawBitmap(mp2Arrow.getBitmap(), mp2Arrow.getX(), mp2Arrow.getY(), paint);
             }
+
+            if (Powerups == true) {
+                paint.setColor(Color.argb(255, 255, 255, 255));
+
+                canvas.drawBitmap(powerup1, dotSize * .8f, screenY - distBetween * 0.5f, paint);
+                canvas.drawBitmap(powerup2,dotSize * .8f, screenY - distBetween * 1.25f, paint);
+                canvas.drawBitmap(powerup3,dotSize * .8f, screenY - distBetween * 2.0f, paint);
+
+                canvas.drawBitmap(powerup1,screenX - dotSize * 1.6f, distBetween * 0.5f, paint);
+                canvas.drawBitmap(powerup2, screenX - dotSize * 1.6f, distBetween * 1.25f, paint);
+                canvas.drawBitmap(powerup3,screenX - dotSize * 1.6f, distBetween * 2.0f, paint);
+
+
+                if(curtain){
+                    canvas.drawRect(screenX/4, 0, screenX - screenX/4,screenY, paint);
+                }
+
+            }
+
+
 
             if (gameEnd == true) {
                 paint.setTextSize(300f);
@@ -430,7 +460,9 @@ public class GameView extends SurfaceView implements Runnable {
                         //Detect player1 powerups touched
                         if (dotSize * .8f - dotSize < motionEvent.getX() && motionEvent.getX() < dotSize * .8f + dotSize && screenY -  distBetween * i * 0.5f - dotSize < motionEvent.getY() && motionEvent.getY() < screenY - distBetween * i * 0.5f + dotSize) {
 
-                            if (p1Turn && p1ArrowsLeft != 0){
+                            if (p1Turn && p1ArrowsLeft != 0 && p1powerup1 == true && i == 1){
+                                curtain = true;
+                                p1powerup1 = false;
 
                             }
 
@@ -440,6 +472,12 @@ public class GameView extends SurfaceView implements Runnable {
 
                         else if (screenX - dotSize * 1.6f - dotSize < motionEvent.getX() && motionEvent.getX() < screenX - dotSize * 1.6f + dotSize && distBetween * i * 0.75f - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * i * 0.75f + dotSize) {
 
+
+                            if (p2Turn && p2ArrowsLeft != 0 && p2powerup1 == true && i == 1){
+                                curtain = true;
+                                p2powerup1 = false;
+
+                            }
                             Log.e("Player2 powerup", i+" was pressed");
 
 
