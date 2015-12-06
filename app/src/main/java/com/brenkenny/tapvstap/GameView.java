@@ -277,7 +277,7 @@ public class GameView extends SurfaceView implements Runnable {
                 canvas.rotate(90);
                 //canvas.drawText("Round: "+roundCount,screenY-20*yPixel,-yPixel,paint);
                 if (p1Turn && p1ArrowsLeft != 0) {
-                    canvas.drawText("FIRE!! (" + p1ArrowsLeft + ")", 30, -6 * yPixel, paint);
+                    canvas.drawText("FIRE!! (" + p1ArrowsLeft + ")", 60, -6 * yPixel, paint);
                 }
                 canvas.restore();
 
@@ -286,7 +286,7 @@ public class GameView extends SurfaceView implements Runnable {
                 canvas.rotate(-90);
                 // canvas.drawText("Round: "+roundCount,-screenY+80*yPixel,screenX-xPixel,paint);
                 if (p2Turn && p2ArrowsLeft != 0) {
-                    canvas.drawText("FIRE!! (" + p2ArrowsLeft + ")", -screenY + 30, screenX - 6 * yPixel, paint);
+                    canvas.drawText("FIRE!! (" + p2ArrowsLeft + ")", -screenY + 60, screenX - 6 * yPixel, paint);
                 }
                 canvas.restore();
             }
