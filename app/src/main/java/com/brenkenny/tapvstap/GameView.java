@@ -287,39 +287,6 @@ public class GameView extends SurfaceView implements Runnable {
 
             canvas.drawBitmap(background, 0, 0, paint);
 
-            if (gameEnd != true) {
-                paint.setColor(Color.argb(255, 255, 0, 0));
-                canvas.drawRect(p1Life, paint);
-                canvas.drawRect(p2Life, paint);
-
-                paint.setColor(Color.argb(200, 255, 255, 255));
-                if (p1Turn && p1ArrowsLeft != 0) {
-                    canvas.drawArc(timer, 0, timeRemaining / (200 + roundCount * 10) * 360, true, paint);
-                }
-                else if(p2Turn && p2ArrowsLeft != 0) {
-                    canvas.drawArc(timer, 180, timeRemaining / (200 + roundCount * 10) * 360, true, paint);
-                }
-
-                paint.setColor(Color.argb(255, 255, 255, 255));
-                //P1 UI
-                canvas.save();
-                canvas.rotate(90);
-                //canvas.drawText("Round: "+roundCount,screenY-20*yPixel,-yPixel,paint);
-                if (p1Turn && p1ArrowsLeft != 0) {
-                    canvas.drawText("FIRE!! (" + p1ArrowsLeft + ")", 60, -6 * yPixel, paint);
-                }
-                canvas.restore();
-
-                //P2 UI
-                canvas.save();
-                canvas.rotate(-90);
-                // canvas.drawText("Round: "+roundCount,-screenY+80*yPixel,screenX-xPixel,paint);
-                if (p2Turn && p2ArrowsLeft != 0) {
-                    canvas.drawText("FIRE!! (" + p2ArrowsLeft + ")", -screenY + 60, screenX - 6 * yPixel, paint);
-                }
-                canvas.restore();
-            }
-
             paint.setColor(Color.argb(255, 0, 0, 255)); //blue
             canvas.drawCircle(screenMargin, distBetween, dotSize, paint);
             canvas.drawCircle(screenX - screenMargin, distBetween, dotSize, paint);
@@ -356,37 +323,68 @@ public class GameView extends SurfaceView implements Runnable {
                 canvas.drawBitmap(mp2Arrow.getBitmap(), mp2Arrow.getX(), mp2Arrow.getY(), paint);
             }
 
-            if (Powerups == true) {
+            if (gameEnd != true) {
+
+                if (Powerups == true) {
+                    paint.setColor(Color.argb(255, 0, 0, 0));
+
+                    if(p1powerup1) {
+                        canvas.drawBitmap(powerup1, dotSize * .8f, screenY - distBetween * 0.5f, paint);
+                    }
+                    if(p1powerup2) {
+                        canvas.drawBitmap(powerup2, dotSize * .8f, screenY - distBetween * 1.25f, paint);
+                    }
+                    if(p1powerup3) {
+                        canvas.drawBitmap(powerup3, dotSize * .8f, screenY - distBetween * 2.0f, paint);
+                    }
+
+                    if(p2powerup1) {
+                        canvas.drawBitmap(powerup1, screenX - dotSize * 1.6f, distBetween * 0.5f, paint);
+                    }
+                    if(p2powerup2) {
+                        canvas.drawBitmap(powerup2, screenX - dotSize * 1.6f, distBetween * 1.25f, paint);
+                    }
+                    if(p2powerup3) {
+                        canvas.drawBitmap(powerup3, screenX - dotSize * 1.6f, distBetween * 2.0f, paint);
+                    }
+
+                    if(curtain){
+                        canvas.drawRect(screenX / 4, 0, screenX - screenX / 4, screenY, paint);
+                    }
+
+                }
+
+                paint.setColor(Color.argb(255, 255, 0, 0));
+                canvas.drawRect(p1Life, paint);
+                canvas.drawRect(p2Life, paint);
+
+                paint.setColor(Color.argb(200, 255, 255, 255));
+                if (p1Turn && p1ArrowsLeft != 0) {
+                    canvas.drawArc(timer, 0, timeRemaining / (200 + roundCount * 10) * 360, true, paint);
+                }
+                else if(p2Turn && p2ArrowsLeft != 0) {
+                    canvas.drawArc(timer, 180, timeRemaining / (200 + roundCount * 10) * 360, true, paint);
+                }
+
                 paint.setColor(Color.argb(255, 255, 255, 255));
+                //P1 UI
+                canvas.save();
+                canvas.rotate(90);
+                //canvas.drawText("Round: "+roundCount,screenY-20*yPixel,-yPixel,paint);
+                if (p1Turn && p1ArrowsLeft != 0) {
+                    canvas.drawText("FIRE!! (" + p1ArrowsLeft + ")", 60, -6 * yPixel, paint);
+                }
+                canvas.restore();
 
-                if(p1powerup1) {
-                    canvas.drawBitmap(powerup1, dotSize * .8f, screenY - distBetween * 0.5f, paint);
+                //P2 UI
+                canvas.save();
+                canvas.rotate(-90);
+                // canvas.drawText("Round: "+roundCount,-screenY+80*yPixel,screenX-xPixel,paint);
+                if (p2Turn && p2ArrowsLeft != 0) {
+                    canvas.drawText("FIRE!! (" + p2ArrowsLeft + ")", -screenY + 60, screenX - 6 * yPixel, paint);
                 }
-                if(p1powerup2) {
-                    canvas.drawBitmap(powerup2, dotSize * .8f, screenY - distBetween * 1.25f, paint);
-                }
-                if(p1powerup3) {
-                    canvas.drawBitmap(powerup3, dotSize * .8f, screenY - distBetween * 2.0f, paint);
-                }
-
-                if(p2powerup1) {
-                    canvas.drawBitmap(powerup1, screenX - dotSize * 1.6f, distBetween * 0.5f, paint);
-                }
-                if(p2powerup2) {
-                    canvas.drawBitmap(powerup2, screenX - dotSize * 1.6f, distBetween * 1.25f, paint);
-                }
-                if(p2powerup3) {
-                    canvas.drawBitmap(powerup3, screenX - dotSize * 1.6f, distBetween * 2.0f, paint);
-                }
-
-
-                if(curtain){
-                    canvas.drawRect(screenX / 4, 0, screenX - screenX / 4, screenY, paint);
-                }
-
+                canvas.restore();
             }
-
-
 
             if (gameEnd == true) {
                 paint.setTextSize(300f);
@@ -472,12 +470,12 @@ public class GameView extends SurfaceView implements Runnable {
                         //Detect player1 powerups touched
                         if (dotSize * .8f - dotSize < motionEvent.getX() && motionEvent.getX() < dotSize * .8f + dotSize && screenY -  distBetween * i * 0.5f - dotSize < motionEvent.getY() && motionEvent.getY() < screenY - distBetween * i * 0.5f + dotSize) {
 
-                            if (p1Turn && p1ArrowsLeft != 0 && p1powerup1 == true && i == 1){
+                            if (p1Turn && p1powerup1 == true && i == 1){
                                 curtain = true;
                                 p1powerup1 = false;
 
                             }
-                            if (p1Turn && p1ArrowsLeft != 0 && p1powerup2 == true && i == 2){
+                            if (p1Turn && p1powerup2 == true && i == 2){
                                 speedup = true;
                                 p1powerup2 = false;
 
@@ -492,14 +490,13 @@ public class GameView extends SurfaceView implements Runnable {
 
                         else if (screenX - dotSize * 1.6f - dotSize < motionEvent.getX() && motionEvent.getX() < screenX - dotSize * 1.6f + dotSize && distBetween * i * 0.75f - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * i * 0.75f + dotSize) {
 
-
-                            if (p2Turn && p2ArrowsLeft != 0 && p2powerup1 == true && i == 1){
+                            if (p2Turn && p2powerup1 == true && i == 1){
                                 curtain = true;
                                 p2powerup1 = false;
 
                             }
 
-                            if (p2Turn && p2ArrowsLeft != 0 && p2powerup2 == true && i == 2){
+                            if (p2Turn && p2powerup2 == true && i == 2){
                                 speedup = true;
                                 p2powerup2 = false;
 
