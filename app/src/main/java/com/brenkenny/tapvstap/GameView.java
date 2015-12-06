@@ -359,17 +359,29 @@ public class GameView extends SurfaceView implements Runnable {
             if (Powerups == true) {
                 paint.setColor(Color.argb(255, 255, 255, 255));
 
-                canvas.drawBitmap(powerup1, dotSize * .8f, screenY - distBetween * 0.5f, paint);
-                canvas.drawBitmap(powerup2,dotSize * .8f, screenY - distBetween * 1.25f, paint);
-                canvas.drawBitmap(powerup3,dotSize * .8f, screenY - distBetween * 2.0f, paint);
+                if(p1powerup1) {
+                    canvas.drawBitmap(powerup1, dotSize * .8f, screenY - distBetween * 0.5f, paint);
+                }
+                if(p1powerup2) {
+                    canvas.drawBitmap(powerup2, dotSize * .8f, screenY - distBetween * 1.25f, paint);
+                }
+                if(p1powerup3) {
+                    canvas.drawBitmap(powerup3, dotSize * .8f, screenY - distBetween * 2.0f, paint);
+                }
 
-                canvas.drawBitmap(powerup1,screenX - dotSize * 1.6f, distBetween * 0.5f, paint);
-                canvas.drawBitmap(powerup2, screenX - dotSize * 1.6f, distBetween * 1.25f, paint);
-                canvas.drawBitmap(powerup3,screenX - dotSize * 1.6f, distBetween * 2.0f, paint);
+                if(p2powerup1) {
+                    canvas.drawBitmap(powerup1, screenX - dotSize * 1.6f, distBetween * 0.5f, paint);
+                }
+                if(p2powerup2) {
+                    canvas.drawBitmap(powerup2, screenX - dotSize * 1.6f, distBetween * 1.25f, paint);
+                }
+                if(p2powerup3) {
+                    canvas.drawBitmap(powerup3, screenX - dotSize * 1.6f, distBetween * 2.0f, paint);
+                }
 
 
                 if(curtain){
-                    canvas.drawRect(screenX/4, 0, screenX - screenX/4,screenY, paint);
+                    canvas.drawRect(screenX / 4, 0, screenX - screenX / 4, screenY, paint);
                 }
 
             }
@@ -465,9 +477,17 @@ public class GameView extends SurfaceView implements Runnable {
                                 p1powerup1 = false;
 
                             }
+                            if (p1Turn && p1ArrowsLeft != 0 && p1powerup2 == true && i == 2){
+                                speedup = true;
+                                p1powerup2 = false;
 
+                            }
+                            if (p1Turn && p1ArrowsLeft != 0 && p1powerup3 == true && i == 3){
+                                doublearrows = true;
+                                p1powerup3 = false;
 
-                            Log.e("Player1 powerup", i + " was pressed");
+                            }
+
                         }
 
                         else if (screenX - dotSize * 1.6f - dotSize < motionEvent.getX() && motionEvent.getX() < screenX - dotSize * 1.6f + dotSize && distBetween * i * 0.75f - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * i * 0.75f + dotSize) {
@@ -478,9 +498,18 @@ public class GameView extends SurfaceView implements Runnable {
                                 p2powerup1 = false;
 
                             }
-                            Log.e("Player2 powerup", i+" was pressed");
 
+                            if (p2Turn && p2ArrowsLeft != 0 && p2powerup2 == true && i == 2){
+                                speedup = true;
+                                p2powerup2 = false;
 
+                            }
+
+                            if (p2Turn && p2ArrowsLeft != 0 && p2powerup3 == true && i == 3){
+                                doublearrows = true;
+                                p2powerup3 = false;
+
+                            }
 
                         }
 
