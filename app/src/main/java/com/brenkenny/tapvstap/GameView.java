@@ -482,6 +482,7 @@ public class GameView extends SurfaceView implements Runnable {
                             }
                             if (p1Turn && p1ArrowsLeft != 0 && p1powerup3 == true && i == 3){
                                 doublearrows = true;
+                                p1ArrowsLeft = p1ArrowsLeft*2;
                                 p1powerup3 = false;
 
                             }
@@ -504,6 +505,7 @@ public class GameView extends SurfaceView implements Runnable {
 
                             if (p2Turn && p2ArrowsLeft != 0 && p2powerup3 == true && i == 3){
                                 doublearrows = true;
+                                p2ArrowsLeft = p2ArrowsLeft*2;
                                 p2powerup3 = false;
 
                             }
