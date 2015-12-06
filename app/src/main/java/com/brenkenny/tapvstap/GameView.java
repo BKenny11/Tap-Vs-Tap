@@ -423,6 +423,33 @@ public class GameView extends SurfaceView implements Runnable {
                     checkColorTapped(2, "green", motionEvent);
                     checkColorTapped(2, "yellow", motionEvent);
                     checkColorTapped(2, "orange", motionEvent);
+
+
+
+                    for (int i= 1; i < 4;i++) {
+                        //Detect player1 powerups touched
+                        if (dotSize * .8f - dotSize < motionEvent.getX() && motionEvent.getX() < dotSize * .8f + dotSize && screenY -  distBetween * i * 0.5f - dotSize < motionEvent.getY() && motionEvent.getY() < screenY - distBetween * i * 0.5f + dotSize) {
+
+                            if (p1Turn && p1ArrowsLeft != 0){
+
+                            }
+
+
+                            Log.e("Player1 powerup", i + " was pressed");
+                        }
+
+                        else if (screenX - dotSize * 1.6f - dotSize < motionEvent.getX() && motionEvent.getX() < screenX - dotSize * 1.6f + dotSize && distBetween * i * 0.75f - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * i * 0.75f + dotSize) {
+
+                            Log.e("Player2 powerup", i+" was pressed");
+
+
+
+                        }
+
+                    }
+
+
+
                 }
                 if(gameEnd){
                     startGame();
