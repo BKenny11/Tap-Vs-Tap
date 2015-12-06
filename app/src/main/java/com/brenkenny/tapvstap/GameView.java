@@ -51,7 +51,9 @@ public class GameView extends SurfaceView implements Runnable {
 
     private Bitmap background;
 
-    private Bitmap life;
+    private Bitmap powerup1;
+    private Bitmap powerup2;
+    private Bitmap powerup3;
 
     private int roundCount;
 
@@ -134,11 +136,16 @@ public class GameView extends SurfaceView implements Runnable {
 
         screenMargin = (int)(dotSize * 3);
 
-        life  = BitmapFactory.decodeResource(context.getResources(), R.drawable.life);
-        life = Bitmap.createScaledBitmap(life, dotSize / 2, dotSize / 2, true);
 
         background = BitmapFactory.decodeResource(context.getResources(), R.drawable.gameground);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, true);
+
+        powerup1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.curtain);
+        powerup1 = Bitmap.createScaledBitmap(powerup1, dotSize, dotSize, true);
+        powerup2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.faster);
+        powerup2 = Bitmap.createScaledBitmap(powerup2, dotSize, dotSize, true);
+        powerup3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.doublecount);
+        powerup3 = Bitmap.createScaledBitmap(powerup3, dotSize, dotSize, true);
 
         p1SpawnPointX = screenMargin - dotSize;
         p2SpawnPointX = screenX - screenMargin - dotSize;
@@ -284,13 +291,23 @@ public class GameView extends SurfaceView implements Runnable {
 
             if (Powerups == true) {
                 paint.setColor(Color.argb(255, 255, 255, 255));
-                canvas.drawCircle(dotSize * 1.2f, screenY - distBetween * 0.5f, dotSize / 2, paint);
-                canvas.drawCircle(dotSize * 1.2f, screenY - distBetween * 1.25f, dotSize / 2, paint);
-                canvas.drawCircle(dotSize * 1.2f, screenY - distBetween * 2.0f, dotSize / 2, paint);
+//                canvas.drawCircle(dotSize * 1.2f, screenY - distBetween * 0.5f, dotSize / 2, paint);
+//                canvas.drawCircle(dotSize * 1.2f, screenY - distBetween * 1.25f, dotSize / 2, paint);
+//                canvas.drawCircle(dotSize * 1.2f, screenY - distBetween * 2.0f, dotSize / 2, paint);
+//
+//                canvas.drawCircle(screenX - dotSize * 1.2f, distBetween * 0.5f, dotSize / 2, paint);
+//                canvas.drawCircle(screenX - dotSize * 1.2f, distBetween * 1.25f, dotSize / 2, paint);
+//                canvas.drawCircle(screenX - dotSize * 1.2f, distBetween * 2.0f, dotSize / 2, paint);
 
-                canvas.drawCircle(screenX - dotSize * 1.2f, distBetween * 0.5f, dotSize / 2, paint);
-                canvas.drawCircle(screenX - dotSize * 1.2f, distBetween * 1.25f, dotSize / 2, paint);
-                canvas.drawCircle(screenX - dotSize * 1.2f, distBetween * 2.0f, dotSize / 2, paint);
+
+                canvas.drawBitmap(powerup1, dotSize * .8f, screenY - distBetween * 0.5f, paint);
+                canvas.drawBitmap(powerup2,dotSize * .8f, screenY - distBetween * 1.25f, paint);
+                canvas.drawBitmap(powerup3,dotSize * .8f, screenY - distBetween * 2.0f, paint);
+
+                canvas.drawBitmap(powerup1,screenX - dotSize * 1.6f, distBetween * 0.5f, paint);
+                canvas.drawBitmap(powerup2, screenX - dotSize * 1.6f, distBetween * 1.25f, paint);
+                canvas.drawBitmap(powerup3,screenX - dotSize * 1.6f, distBetween * 2.0f, paint);
+
             }
 
             paint.setColor(Color.argb(255, 0, 0, 255)); //blue
@@ -544,6 +561,9 @@ public class GameView extends SurfaceView implements Runnable {
                     }
                 }
             }
+
+
+
         }
     }
 
