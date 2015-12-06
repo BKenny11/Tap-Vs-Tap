@@ -351,6 +351,18 @@ public class GameView extends SurfaceView implements Runnable {
                     if(curtain){
                         canvas.drawRect(screenX / 4, 0, screenX - screenX / 4, screenY, paint);
                     }
+                    if(speedup){
+                        if(p1Turn){
+                            for(int j = 0; j < p1ArrowList.size(); j++){
+                                p1ArrowList.get(j).setSpeed(dotSize/10 + dotSize/70*(roundCount+10));
+                            }
+                        }
+                        else{
+                            for(int j = 0; j < p2ArrowList.size(); j++){
+                                p2ArrowList.get(j).setSpeed(dotSize/10 + dotSize/70*(roundCount+10));
+                            }
+                        }
+                    }
 
                 }
 
