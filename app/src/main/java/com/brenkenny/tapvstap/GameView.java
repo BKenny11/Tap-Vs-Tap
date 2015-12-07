@@ -329,13 +329,13 @@ public class GameView extends SurfaceView implements Runnable {
                     paint.setColor(Color.argb(255, 0, 0, 0));
 
                     if(p1powerup1) {
-                        canvas.drawBitmap(powerup1, dotSize * .8f, screenY - distBetween * 0.5f, paint);
+                        canvas.drawBitmap(powerup1, dotSize * 0.8f, screenY - distBetween * 1.0f, paint);
                     }
                     if(p1powerup2) {
-                        canvas.drawBitmap(powerup2, dotSize * .8f, screenY - distBetween * 1.25f, paint);
+                        canvas.drawBitmap(powerup2, dotSize * 0.8f, screenY - distBetween * 1.75f, paint);
                     }
                     if(p1powerup3) {
-                        canvas.drawBitmap(powerup3, dotSize * .8f, screenY - distBetween * 2.0f, paint);
+                        canvas.drawBitmap(powerup3, dotSize * 0.8f, screenY - distBetween * 2.5f, paint);
                     }
 
                     if(p2powerup1) {
@@ -478,7 +478,7 @@ public class GameView extends SurfaceView implements Runnable {
 
                     for (int i= 1; i < 4;i++) {
                         //Detect player1 powerups touched
-                        if (dotSize * .8f - dotSize < motionEvent.getX() && motionEvent.getX() < dotSize * .8f + dotSize && screenY -  distBetween * i * 0.5f - dotSize < motionEvent.getY() && motionEvent.getY() < screenY - distBetween * i * 0.5f + dotSize) {
+                        if (dotSize * 0.8f - dotSize < motionEvent.getX() && motionEvent.getX() < dotSize * 0.8f + dotSize && screenY -  distBetween * i * 0.75f + 0.25f - dotSize < motionEvent.getY() && motionEvent.getY() < screenY - distBetween * i * 0.75f + 0.25f + dotSize) {
 
                             if (p1Turn && p1powerup1 == true && i == 1){
                                 curtain = true;
