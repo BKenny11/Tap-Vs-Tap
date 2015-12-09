@@ -11,15 +11,15 @@ import android.widget.TextView;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    public int lives = 3;
-    public int gameSpeed = 1;
+    public int lives = 10;
+    public int round = 1;
     public boolean backgroundMusic = true;
     public boolean soundEffects = true;
     public boolean powerups = true;
 
 
     public final static String EXTRA_GAME_LIVES = "com.BrenandEric.MESSAGE";
-    public final static String EXTRA_GAME_SPEED = "com.BrenandEric.SPEED";
+    public final static String EXTRA_GAME_ROUND = "com.BrenandEric.ROUND";
     public final static String EXTRA_GAME_SOUNDS = "com.BrenandEric.SOUNDS";
     public final static String EXTRA_GAME_MUSIC = "com.BrenandEric.MUSIC";
     public final static String EXTRA_GAME_POWERUPS = "com.BrenandEric.POWERUPS";
@@ -37,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
         i.putExtra(EXTRA_GAME_MUSIC, backgroundMusic);
         i.putExtra(EXTRA_GAME_POWERUPS,powerups);
         i.putExtra(EXTRA_GAME_SOUNDS,soundEffects);
-        i.putExtra(EXTRA_GAME_SPEED, "" + gameSpeed);
+        i.putExtra(EXTRA_GAME_ROUND, "" + round);
         startActivity(i);
     }
 
@@ -56,6 +56,24 @@ public class SettingsActivity extends AppCompatActivity {
             t.setText(String.valueOf(lives));
         }
     }
+
+
+    public void addRound(View view){
+
+        round++;
+        TextView t = (TextView)findViewById(R.id.textView4);
+        t.setText(String.valueOf(round));
+
+
+    }
+    public void minusRound(View view){
+        if(round > 1) {
+            round--;
+            TextView t = (TextView) findViewById(R.id.textView4);
+            t.setText(String.valueOf(round));
+        }
+    }
+
 
     public void changePowerups(View view){
         if (powerups == true){

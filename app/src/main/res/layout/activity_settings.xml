@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Difficulty Speed"
+        android:text="Select Starting Round"
         android:id="@+id/textView2"
         android:layout_marginTop="51dp" android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/textView" android:layout_alignStart="@+id/textView"/>
@@ -62,7 +62,7 @@
         android:text="+"
         android:id="@+id/button4"
         android:layout_below="@+id/textView2" android:layout_alignRight="@+id/BackgroundMusicSwitch"
-        android:layout_alignEnd="@+id/BackgroundMusicSwitch"/>
+        android:layout_alignEnd="@+id/BackgroundMusicSwitch" android:onClick="addRound"/>
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
         android:text="-"
         android:id="@+id/button5"
         android:layout_below="@+id/textView2" android:layout_toLeftOf="@+id/button3"
-        android:layout_toStartOf="@+id/button3"/>
+        android:layout_toStartOf="@+id/button3" android:onClick="minusRound"/>
     <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:text="-" android:id="@+id/button6"
             android:layout_below="@+id/textView" android:layout_alignLeft="@+id/button5"
@@ -83,7 +83,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="3"
+        android:text="10"
         android:id="@+id/textView3"
-        android:layout_below="@+id/textView" android:layout_centerHorizontal="true"/>
+        android:layout_alignBaseline="@+id/button6" android:layout_alignBottom="@+id/button6"
+        android:layout_toRightOf="@+id/button6" android:layout_toEndOf="@+id/button6"
+        android:layout_marginLeft="31dp" android:layout_marginStart="31dp"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:textAppearance="?android:attr/textAppearanceMedium" android:text="1"
+              android:id="@+id/textView4"
+              android:layout_alignBaseline="@+id/button4" android:layout_alignBottom="@+id/button4"
+              android:layout_alignLeft="@+id/textView3" android:layout_alignStart="@+id/textView3"/>
 </RelativeLayout>

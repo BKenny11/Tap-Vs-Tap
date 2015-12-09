@@ -13,7 +13,7 @@ public class GameActivity extends Activity {
     // Our object to handle the View
     private GameView gameView;
     public int lives;
-    public int speed;
+    public int round;
     public Boolean powerups;
     public Boolean music;
     public Boolean sounds;
@@ -32,7 +32,7 @@ public class GameActivity extends Activity {
         Intent intent = getIntent();
         if (intent.getStringExtra(SettingsActivity.EXTRA_GAME_LIVES) != null) {
             lives = Integer.valueOf(intent.getStringExtra(SettingsActivity.EXTRA_GAME_LIVES));
-            speed = Integer.valueOf(intent.getStringExtra(SettingsActivity.EXTRA_GAME_SPEED));
+            round = Integer.valueOf(intent.getStringExtra(SettingsActivity.EXTRA_GAME_ROUND));
             powerups = intent.getBooleanExtra(SettingsActivity.EXTRA_GAME_POWERUPS, true);
             music = intent.getBooleanExtra(SettingsActivity.EXTRA_GAME_MUSIC, true);
             sounds = intent.getBooleanExtra(SettingsActivity.EXTRA_GAME_SOUNDS, true);
@@ -42,7 +42,7 @@ public class GameActivity extends Activity {
         }
         else {
             lives = 10;
-            speed = 1;
+            round = 1;
             powerups = true;
             music = true;
             sounds = true;
@@ -51,7 +51,7 @@ public class GameActivity extends Activity {
         // Create an instance of our Tappy Defender View
         // Also passing in this.
         // Also passing in the screen resolution to the constructor
-        gameView = new GameView(this, size.x, size.y, lives, powerups, music,sounds,speed);
+        gameView = new GameView(this, size.x, size.y, lives, powerups, music,sounds,round);
 
         // Make our gameView the view for the Activity
         setContentView(gameView);

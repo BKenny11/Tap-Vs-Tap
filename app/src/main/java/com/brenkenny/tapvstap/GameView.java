@@ -91,7 +91,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     private int lives;
     private Boolean Powerups;
-    private int Speed;
+    private int InitialRound;
     private Boolean BackgroundMusic;
     private Boolean SoundEffects;
 
@@ -112,7 +112,7 @@ public class GameView extends SurfaceView implements Runnable {
     // For saving and loading the high score
     private SharedPreferences prefs;
 
-    GameView(Context context, int x, int y, int numLives, boolean powerups, boolean music, boolean sounds, int speed) {
+    GameView(Context context, int x, int y, int numLives, boolean powerups, boolean music, boolean sounds, int round) {
         super(context);
         this.context  = context;
 
@@ -134,7 +134,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         lives = numLives;
         Powerups = powerups;
-        Speed = speed;
+        InitialRound = round;
         BackgroundMusic = music;
         SoundEffects = sounds;
 
@@ -197,7 +197,7 @@ public class GameView extends SurfaceView implements Runnable {
         p2powerup2 = true;
         p2powerup3 = true;
 
-        roundCount = 1;
+        roundCount = InitialRound;
         timeRemaining = 210;
         p1ArrowsLeft = roundCount;
         p2ArrowsLeft = roundCount;
