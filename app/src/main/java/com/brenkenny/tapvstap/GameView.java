@@ -198,7 +198,7 @@ public class GameView extends SurfaceView implements Runnable {
         p2powerup3 = true;
 
         roundCount = InitialRound;
-        timeRemaining = 210;
+        timeRemaining = 200 + roundCount * 10;
         p1ArrowsLeft = roundCount;
         p2ArrowsLeft = roundCount;
 
