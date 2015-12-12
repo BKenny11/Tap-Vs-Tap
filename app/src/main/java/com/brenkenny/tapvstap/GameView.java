@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class GameView extends SurfaceView implements Runnable {
 
     private SoundPool mSoundPool;
-    MediaPlayer mPlayer;
+    private MediaPlayer mPlayer;
     int soundId1;
     int soundId2;
     int soundId3;
