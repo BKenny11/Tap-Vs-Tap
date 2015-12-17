@@ -13,12 +13,14 @@ package com.brenkenny.tapvstap;
         private int x, y;
         private float speed;
         private int dotSize;
+        private Boolean spedUp;
         // Constructor
         public p1Arrow(Context context, int screenX, int screenY, String color, int size, int round) {
             x = screenX;
             y = screenY;
             speed = size/10 + size/70*round;
             dotSize = size*2;
+            spedUp = false;
 
             if(color == "blue") {
                 bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.bluearrow);
@@ -66,6 +68,10 @@ package com.brenkenny.tapvstap;
         public int getY() {
             return y;
         }
+
+        public Boolean isSpedUp() { return spedUp; }
+
+        public void setSpedUp(Boolean usingSpeedUp) { spedUp = usingSpeedUp; }
     }
 
 

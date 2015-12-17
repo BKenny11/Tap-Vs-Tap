@@ -21,6 +21,7 @@ import android.view.SurfaceView;
 import android.media.SoundPool;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameView extends SurfaceView implements Runnable {
 
@@ -374,12 +375,20 @@ public class GameView extends SurfaceView implements Runnable {
                     if(speedup){
                         if(p1Turn){
                             for(int j = 0; j < p1ArrowList.size(); j++){
-                                p1ArrowList.get(j).setSpeed(dotSize/10 + dotSize/70*(roundCount+10));
+                                if(!p1ArrowList.get(j).isSpedUp()){
+                                    Random random = new Random();
+                                    p1ArrowList.get(j).setSpeed(dotSize/10 + dotSize/70*(roundCount+random.nextInt(10)));
+                                    p1ArrowList.get(j).setSpedUp(true);
+                                }
                             }
                         }
                         else{
                             for(int j = 0; j < p2ArrowList.size(); j++){
-                                p2ArrowList.get(j).setSpeed(dotSize/10 + dotSize/70*(roundCount+10));
+                                if(!p2ArrowList.get(j).isSpedUp()) {
+                                    Random random = new Random();
+                                    p2ArrowList.get(j).setSpeed(dotSize / 10 + dotSize / 70 * (roundCount + random.nextInt(10)));
+                                    p2ArrowList.get(j).setSpedUp(true);
+                                }
                             }
                         }
                     }

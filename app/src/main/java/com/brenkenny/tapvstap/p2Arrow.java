@@ -13,6 +13,7 @@ public class p2Arrow {
     private int x, y;
     private float speed;
     private int dotSize;
+    private Boolean spedUp;
 
     // Constructor
     public p2Arrow(Context context, int screenX, int screenY, String color, int size, int round) {
@@ -20,6 +21,7 @@ public class p2Arrow {
         y = screenY;
         speed = size/10 + size/70*round;
         dotSize = size*2;
+        spedUp = false;
 
         if(color == "blue") {
             bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.p2bluearrow);
@@ -67,6 +69,10 @@ public class p2Arrow {
     public int getY() {
         return y;
     }
+
+    public Boolean isSpedUp() { return spedUp; }
+
+    public void setSpedUp(Boolean usingSpeedUp) { spedUp = usingSpeedUp; }
 }
 
 
