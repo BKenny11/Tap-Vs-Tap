@@ -220,6 +220,8 @@ public class GameView extends SurfaceView implements Runnable {
         p1Turn = true;
         p2Turn = false;
 
+        mPlayer.setVolume(1,1);
+
         if(BackgroundMusic == true) {
             mPlayer.start();
         }
@@ -244,6 +246,7 @@ public class GameView extends SurfaceView implements Runnable {
             if (mp1Arrow.getX() > screenX + 100) {
                 p1ArrowList.remove(i);
                 p2Lives--;
+                mSoundPool.play(healthloss, 1, 1, 0, 0, 1);
                 p2Life.set(screenX - 30, (1 - (float)p2Lives/lives) * screenY, screenX, screenY);
             }
         }
@@ -254,6 +257,7 @@ public class GameView extends SurfaceView implements Runnable {
             if (mp2Arrow.getX() < -100) {
                 p2ArrowList.remove(i);
                 p1Lives--;
+                mSoundPool.play(healthloss, 1, 1, 0, 0, 1);
                 p1Life.set(0, 0, 30, (float)p1Lives/lives * screenY);
             }
         }
@@ -527,7 +531,7 @@ public class GameView extends SurfaceView implements Runnable {
 
                             if (p2Turn && p2ArrowsLeft != 0 && p2powerup3 == true && i == 3){
                                 doublearrows = true;
-                                mSoundPool.play(powerupsound3, 1, 1, 0, 0, 1);
+                                mSoundPool.play(powerupsound3, 1,1, 0, 0, 1);
                                 p2ArrowsLeft += roundCount;
                                 p2powerup3 = false;
                             }
@@ -594,6 +598,7 @@ public class GameView extends SurfaceView implements Runnable {
                     }
                     if(hitDetected == false){
                         p1Lives--;
+                        mSoundPool.play(healthloss, 1, 1, 0, 0, 1);
                         p1Life.set(0, 0, 30, (float)p1Lives/lives * screenY);
                     }
                 }
@@ -648,6 +653,7 @@ public class GameView extends SurfaceView implements Runnable {
                     }
                     if(hitDetected == false){
                         p2Lives--;
+                        mSoundPool.play(healthloss, 1, 1, 0, 0, 1);
                         p2Life.set(screenX - 30, (1 - (float)p2Lives/lives) * screenY, screenX, screenY);
                     }
                 }
