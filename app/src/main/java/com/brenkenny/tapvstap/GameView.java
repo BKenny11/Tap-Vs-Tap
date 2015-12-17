@@ -38,6 +38,12 @@ public class GameView extends SurfaceView implements Runnable {
     int soundId9;
     int soundId10;
 
+    int powerupsound1;
+    int powerupsound2;
+    int powerupsound3;
+
+    int healthloss;
+
     private p1Arrow arrow;
     private p2Arrow p2arrow;
 
@@ -129,6 +135,12 @@ public class GameView extends SurfaceView implements Runnable {
         soundId8 = mSoundPool.load(context, R.raw.enote2, 1);
         soundId9 = mSoundPool.load(context, R.raw.fnote2, 1);
         soundId10 = mSoundPool.load(context, R.raw.gnote2, 1);
+
+        powerupsound1 = mSoundPool.load(context,R.raw.powerup1,1);
+        powerupsound2 = mSoundPool.load(context,R.raw.powerup2,1);
+        powerupsound3 = mSoundPool.load(context,R.raw.powerup3,1);
+
+        healthloss = mSoundPool.load(context,R.raw.healthloss,1);
 
         mPlayer = MediaPlayer.create(context, R.raw.background);
 
@@ -482,15 +494,18 @@ public class GameView extends SurfaceView implements Runnable {
 
                             if (p1Turn && p1powerup1 == true && i == 1){
                                 curtain = true;
+                                mSoundPool.play(powerupsound1, 1, 1, 0, 0, 1);
                                 p1powerup1 = false;
                             }
                             if (p1Turn && p1powerup2 == true && i == 2){
                                 speedup = true;
+                                mSoundPool.play(powerupsound2, 1, 1, 0, 0, 1);
                                 p1powerup2 = false;
 
                             }
                             if (p1Turn && p1ArrowsLeft != 0 && p1powerup3 == true && i == 3){
                                 doublearrows = true;
+                                mSoundPool.play(powerupsound3, 1, 1, 0, 0, 1);
                                 p1ArrowsLeft += roundCount;
                                 p1powerup3 = false;
                             }
@@ -500,16 +515,19 @@ public class GameView extends SurfaceView implements Runnable {
 
                             if (p2Turn && p2powerup1 == true && i == 1){
                                 curtain = true;
+                                mSoundPool.play(powerupsound1, 1, 1, 0, 0, 1);
                                 p2powerup1 = false;
                             }
 
                             if (p2Turn && p2powerup2 == true && i == 2){
                                 speedup = true;
+                                mSoundPool.play(powerupsound2, 1, 1, 0, 0, 1);
                                 p2powerup2 = false;
                             }
 
                             if (p2Turn && p2ArrowsLeft != 0 && p2powerup3 == true && i == 3){
                                 doublearrows = true;
+                                mSoundPool.play(powerupsound3, 1, 1, 0, 0, 1);
                                 p2ArrowsLeft += roundCount;
                                 p2powerup3 = false;
                             }
