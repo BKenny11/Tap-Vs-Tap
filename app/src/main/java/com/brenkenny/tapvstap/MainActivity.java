@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
              public void openSettings(View v) {
                  // must be the Play button.
                 // Create a new Intent object
-                 Intent i = new Intent(this, SettingsActivity.class);
+                Intent i = new Intent(this, SettingsActivity.class);
                 // Start our GameActivity class via the Intent
                 startActivity(i);
                 finish();
