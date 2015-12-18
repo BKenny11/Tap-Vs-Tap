@@ -16,13 +16,12 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean backgroundMusic = true;
     public boolean soundEffects = true;
     public boolean powerups = true;
-
-
     public final static String EXTRA_GAME_LIVES = "com.BrenandEric.MESSAGE";
     public final static String EXTRA_GAME_ROUND = "com.BrenandEric.ROUND";
     public final static String EXTRA_GAME_SOUNDS = "com.BrenandEric.SOUNDS";
     public final static String EXTRA_GAME_MUSIC = "com.BrenandEric.MUSIC";
     public final static String EXTRA_GAME_POWERUPS = "com.BrenandEric.POWERUPS";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,14 +40,14 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    //increase starting life
     public void addLife(View view){
-
         lives++;
         TextView t = (TextView)findViewById(R.id.textView3);
         t.setText(String.valueOf(lives));
-
-
     }
+
+    //decrease starting life
     public void minusLife(View view){
         if(lives > 1) {
             lives--;
@@ -57,15 +56,14 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-
+    //increase starting round number
     public void addRound(View view){
-
         round++;
         TextView t = (TextView)findViewById(R.id.textView4);
         t.setText(String.valueOf(round));
-
-
     }
+
+    //decrease starting round number
     public void minusRound(View view){
         if(round > 1) {
             round--;
@@ -74,7 +72,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-
+    //enable/disable powerups
     public void changePowerups(View view){
         if (powerups == true){
             powerups = false;
@@ -83,6 +81,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    //enable/disable background music
     public void changeBackgroundSound(View view){
         if (backgroundMusic == true){
             backgroundMusic = false;
@@ -91,6 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    //enable/disable sound effects
     public void changeSoundEffects(View view){
         if (soundEffects == true){
             soundEffects = false;
@@ -99,6 +99,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    //go back to main menu when user hits back button
     @Override
     public void onBackPressed(){
         super.onBackPressed();

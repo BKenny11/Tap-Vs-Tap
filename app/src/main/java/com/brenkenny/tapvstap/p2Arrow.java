@@ -41,14 +41,10 @@ public class p2Arrow {
         bitmap = Bitmap.createScaledBitmap(bitmap2, dotSize, dotSize, true);
     }
 
-    public void update() {
-        x = x - (int)speed;
-    }
+    public void update() { x = x - (int)speed; }
 
     //Getters
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
+    public Bitmap getBitmap() { return bitmap; }
 
     public float getSpeed() {
         return speed;

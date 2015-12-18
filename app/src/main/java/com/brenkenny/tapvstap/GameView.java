@@ -96,7 +96,6 @@ public class GameView extends SurfaceView implements Runnable {
     private boolean speedup;
     private boolean doublearrows;
 
-
     private int xPixel;
     private int yPixel;
 
@@ -209,6 +208,7 @@ public class GameView extends SurfaceView implements Runnable {
         startGame();
     }
 
+    //setup the game for each player
     private void startGame(){
         gameEnd = false;
         p1Lives = lives;
@@ -256,6 +256,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    //keeps track of arrows and player turns, sets up timer
     private void update() {
         if(!newGame && timeRemaining > 0) timeRemaining--;
 
@@ -322,6 +323,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    //draw the UI
     private void draw() {
         if (ourHolder.getSurface().isValid()) {
             canvas = ourHolder.lockCanvas();
@@ -431,7 +433,6 @@ public class GameView extends SurfaceView implements Runnable {
                 //P1 UI
                 canvas.save();
                 canvas.rotate(90);
-                //canvas.drawText("Round: "+roundCount,screenY-20*yPixel,-yPixel,paint);
                 if (p1Turn && p1ArrowsLeft != 0) {
                     canvas.drawText("FIRE!! (" + p1ArrowsLeft + ")", 60, -6 * yPixel, paint);
                 }
@@ -440,7 +441,6 @@ public class GameView extends SurfaceView implements Runnable {
                 //P2 UI
                 canvas.save();
                 canvas.rotate(-90);
-                // canvas.drawText("Round: "+roundCount,-screenY+80*yPixel,screenX-xPixel,paint);
                 if (p2Turn && p2ArrowsLeft != 0) {
                     canvas.drawText("FIRE!! (" + p2ArrowsLeft + ")", -screenY + 60, screenX - 6 * yPixel, paint);
                 }
@@ -499,7 +499,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
-    // SurfaceView allows us to handle the onTouchEvent
+    //detect if a player touches a circle or uses a powerup
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
 
@@ -592,6 +592,7 @@ public class GameView extends SurfaceView implements Runnable {
         return true;
     }
 
+    //check what color a player tapped and respond accordingly
     public void checkColorTapped(int playerNum, String color, MotionEvent motionEvent){
 
         int pointerIndex = motionEvent.getActionIndex();

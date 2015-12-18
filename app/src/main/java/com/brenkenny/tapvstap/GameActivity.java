@@ -36,9 +36,6 @@ public class GameActivity extends Activity {
             powerups = intent.getBooleanExtra(SettingsActivity.EXTRA_GAME_POWERUPS, true);
             music = intent.getBooleanExtra(SettingsActivity.EXTRA_GAME_MUSIC, true);
             sounds = intent.getBooleanExtra(SettingsActivity.EXTRA_GAME_SOUNDS, true);
-
-
-
         }
         else {
             lives = 10;
@@ -72,6 +69,7 @@ public class GameActivity extends Activity {
         gameView.resume();
     }
 
+    //go back to main menu when a user hits the back button
     @Override
     public void onBackPressed(){
         super.onBackPressed();

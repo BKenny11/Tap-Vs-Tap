@@ -13,11 +13,9 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
     }
 
+    //go back to main activity
     public void openSettings(View v) {
-        // must be the Play button.
-        // Create a new Intent object
         Intent i = new Intent(this, MainActivity.class);
-        // Start our GameActivity class via the Intent
         startActivity(i);
         finish();
     }
