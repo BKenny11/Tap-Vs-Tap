@@ -12,7 +12,7 @@
     android:orientation="vertical"
     android:gravity="center">
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/tapvtapicon"/>
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20sp" android:text="A Team Beric Production,Tap vs Tap is two player, rhythm and pattern game. Players take turns firing arrows back and forth at each other, while the other has to tap the arrows in the same pattern and at the correct time. The best way to describe it would be to say it is a cross between Guitar Hero and Simon-Says. Users can also use three different power ups to try and gain an advantage before they lose all of their health due to mistakes."/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20sp" android:text="Tap vs Tap is two player, rhythm and pattern game made by Brendan Kenny and Eric Fonseca,. Players take turns firing arrows back and forth at each other, while the other has to tap the arrows in the same pattern and at the correct time. The best way to describe it would be to say it is a cross between Guitar Hero and Simon-Says. Users can also use three different power ups to try and gain an advantage before they lose all of their health due to mistakes."/>
 
 <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Close" android:onClick="openSettings" android:layout_marginTop="30dp"/>
 </LinearLayout>
