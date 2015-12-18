@@ -248,7 +248,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        if(!newGame) timeRemaining--;
+        if(!newGame && timeRemaining > 0) timeRemaining--;
 
         for(int i = 0; i < p1ArrowList.size(); i++){
             p1Arrow mp1Arrow = p1ArrowList.get(i);
@@ -272,13 +272,8 @@ public class GameView extends SurfaceView implements Runnable {
                 p1Life.set(0, 0, 30, (float)p1Lives/lives * screenY);
             }
         }
-        if(p1Lives < 1 || p2Lives < 1){
-            p2ArrowList.clear();
-            p1ArrowList.clear();
-            gameEnd = true;
-        }
         
-        if (p1Turn && p1ArrowsLeft < 1 && p1ArrowList.size() < 1){
+        if (p1Turn && p1ArrowsLeft < 1 && p1ArrowList.size() < 1 && !gameEnd){
             p2Turn = true;
             p1Turn = false;
             curtain = false;
@@ -288,7 +283,7 @@ public class GameView extends SurfaceView implements Runnable {
             p2ArrowsLeft = roundCount;
             timeRemaining = 200 + roundCount * 10;
         }
-        else if (p2Turn && p2ArrowsLeft < 1 && p2ArrowList.size() < 1) {
+        else if (p2Turn && p2ArrowsLeft < 1 && p2ArrowList.size() < 1 && !gameEnd) {
             p1Turn = true;
             p2Turn = false;
             curtain = false;
@@ -298,13 +293,19 @@ public class GameView extends SurfaceView implements Runnable {
             p1ArrowsLeft = roundCount;
             timeRemaining = 200 + roundCount * 10;
         }
-        if(timeRemaining < 1){
+        if(timeRemaining < 1 && !gameEnd){
             if(p1Turn){
                 p1ArrowsLeft = 0;
             }
             else{
                 p2ArrowsLeft = 0;
             }
+        }
+        if(p1Lives < 1 || p2Lives < 1){
+            p2ArrowList.clear();
+            p1ArrowList.clear();
+            if(!gameEnd) timeRemaining = 100;
+            gameEnd = true;
         }
     }
 
@@ -467,6 +468,9 @@ public class GameView extends SurfaceView implements Runnable {
                     canvas.restore();
                 }
                 paint.setTextSize(50f);
+
+                paint.setColor(Color.argb(200, 255, 255, 255));
+                canvas.drawArc(timer, 0, timeRemaining / 100 * 360, true, paint);
             }
 
             // Unlock and draw the scene
@@ -561,7 +565,7 @@ public class GameView extends SurfaceView implements Runnable {
                         }
                     }
                 }
-                if(gameEnd){
+                if(gameEnd && timeRemaining < 1){
                     startGame();
                 }
 
