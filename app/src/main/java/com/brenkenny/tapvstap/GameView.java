@@ -645,6 +645,7 @@ public class GameView extends SurfaceView implements Runnable {
                     }
 
                 }
+
             }
 
         }
