@@ -502,9 +502,7 @@ public class GameView extends SurfaceView implements Runnable {
             // Has the player touched the screen?
             case MotionEvent.ACTION_DOWN: //fall through
             case MotionEvent.ACTION_POINTER_DOWN:
-                if(gameEnd!=true) {
-                    newGame = false;
-
+                if(gameEnd!=true && newGame!=true) {
                     //Player 1 Buttons
                     checkColorTapped(1, "blue", motionEvent);
                     checkColorTapped(1, "red", motionEvent);
@@ -568,7 +566,7 @@ public class GameView extends SurfaceView implements Runnable {
                 if(gameEnd && timeRemaining < 1){
                     startGame();
                 }
-
+                if(newGame) newGame = false;
 
                 break;
         }
