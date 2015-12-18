@@ -110,7 +110,7 @@ public class GameView extends SurfaceView implements Runnable {
     volatile boolean playing;
     Thread gameThread = null;
 
-    private Boolean newGame;
+    private Boolean newGame = true;
 
     // For drawing
     private Paint paint;
@@ -231,8 +231,6 @@ public class GameView extends SurfaceView implements Runnable {
         p1Turn = true;
         p2Turn = false;
 
-        newGame = true;
-
         mPlayer.setVolume(1,1);
 
         if(BackgroundMusic == true) {
@@ -250,7 +248,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        timeRemaining--;
+        if(!newGame) timeRemaining--;
 
         for(int i = 0; i < p1ArrowList.size(); i++){
             p1Arrow mp1Arrow = p1ArrowList.get(i);
@@ -502,7 +500,7 @@ public class GameView extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_POINTER_DOWN:
                 if(gameEnd!=true) {
                     newGame = false;
-                    
+
                     //Player 1 Buttons
                     checkColorTapped(1, "blue", motionEvent);
                     checkColorTapped(1, "red", motionEvent);
