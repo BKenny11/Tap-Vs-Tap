@@ -68,6 +68,9 @@ public class GameView extends SurfaceView implements Runnable {
     private boolean p1Turn;
     private boolean p2Turn;
 
+    private boolean p1PowerupUsed;
+    private boolean p2PowerupUsed;
+
     private float timeRemaining;
 
     private int p1ArrowsLeft;
@@ -194,6 +197,9 @@ public class GameView extends SurfaceView implements Runnable {
         curtain = false;
         speedup = false;
 
+        p1PowerupUsed = false;
+        p2PowerupUsed = false;
+
         // Initialize our drawing objects
         ourHolder = getHolder();
         paint = new Paint();
@@ -230,6 +236,9 @@ public class GameView extends SurfaceView implements Runnable {
 
         p1Turn = true;
         p2Turn = false;
+
+        p1PowerupUsed = false;
+        p2PowerupUsed = false;
 
         mPlayer.setVolume(1,1);
 
@@ -282,6 +291,8 @@ public class GameView extends SurfaceView implements Runnable {
             roundCount++;
             p2ArrowsLeft = roundCount;
             timeRemaining = 200 + roundCount * 10;
+            p1PowerupUsed = false;
+            p2PowerupUsed = false;
         }
         else if (p2Turn && p2ArrowsLeft < 1 && p2ArrowList.size() < 1 && !gameEnd) {
             p1Turn = true;
@@ -292,6 +303,8 @@ public class GameView extends SurfaceView implements Runnable {
             roundCount++;
             p1ArrowsLeft = roundCount;
             timeRemaining = 200 + roundCount * 10;
+            p1PowerupUsed = false;
+            p2PowerupUsed = false;
         }
         if(timeRemaining < 1 && !gameEnd){
             if(p1Turn){
@@ -521,44 +534,50 @@ public class GameView extends SurfaceView implements Runnable {
                         //Detect player1 powerups touched
                         if (dotSize * 0.8f - dotSize < motionEvent.getX() && motionEvent.getX() < dotSize * 0.8f + dotSize && screenY -  distBetween * i * 0.75f + 0.25f - dotSize < motionEvent.getY() && motionEvent.getY() < screenY - distBetween * i * 0.75f + 0.25f + dotSize) {
 
-                            if (p1Turn && p1powerup1 == true && i == 1){
+                            if (p1Turn && p1powerup1 == true && i == 1 && p1PowerupUsed == false){
                                 curtain = true;
                                 mSoundPool.play(powerupsound1, 1, 1, 0, 0, 1);
                                 p1powerup1 = false;
+                                p1PowerupUsed = true;
                             }
-                            if (p1Turn && p1powerup2 == true && i == 2){
+                            if (p1Turn && p1powerup2 == true && i == 2 && p1PowerupUsed == false){
                                 speedup = true;
                                 mSoundPool.play(powerupsound2, 1, 1, 0, 0, 1);
                                 p1powerup2 = false;
+                                p1PowerupUsed = true;
 
                             }
-                            if (p1Turn && p1ArrowsLeft != 0 && p1powerup3 == true && i == 3){
+                            if (p1Turn && p1ArrowsLeft != 0 && p1powerup3 == true && i == 3 && p1PowerupUsed == false){
                                 doublearrows = true;
                                 mSoundPool.play(powerupsound3, 1, 1, 0, 0, 1);
                                 p1ArrowsLeft += roundCount;
                                 p1powerup3 = false;
+                                p1PowerupUsed = true;
                             }
                         }
 
                         else if (screenX - dotSize * 1.6f - dotSize < motionEvent.getX() && motionEvent.getX() < screenX - dotSize * 1.6f + dotSize && distBetween * i * 0.75f - dotSize < motionEvent.getY() && motionEvent.getY() < distBetween * i * 0.75f + dotSize) {
 
-                            if (p2Turn && p2powerup1 == true && i == 1){
+                            if (p2Turn && p2powerup1 == true && i == 1 && p2PowerupUsed == false){
                                 curtain = true;
                                 mSoundPool.play(powerupsound1, 1, 1, 0, 0, 1);
                                 p2powerup1 = false;
+                                p2PowerupUsed = true;
                             }
 
-                            if (p2Turn && p2powerup2 == true && i == 2){
+                            if (p2Turn && p2powerup2 == true && i == 2 && p2PowerupUsed == false){
                                 speedup = true;
                                 mSoundPool.play(powerupsound2, 1, 1, 0, 0, 1);
                                 p2powerup2 = false;
+                                p2PowerupUsed = true;
                             }
 
-                            if (p2Turn && p2ArrowsLeft != 0 && p2powerup3 == true && i == 3){
+                            if (p2Turn && p2ArrowsLeft != 0 && p2powerup3 == true && i == 3 && p2PowerupUsed == false){
                                 doublearrows = true;
                                 mSoundPool.play(powerupsound3, 1,1, 0, 0, 1);
                                 p2ArrowsLeft += roundCount;
                                 p2powerup3 = false;
+                                p2PowerupUsed = true;
                             }
                         }
                     }
