@@ -57,6 +57,7 @@ public class GameView extends SurfaceView implements Runnable {
     private Context context;
 
     private Bitmap background;
+    private Bitmap tutorial;
 
     private Bitmap powerup1;
     private Bitmap powerup2;
@@ -108,6 +109,8 @@ public class GameView extends SurfaceView implements Runnable {
 
     volatile boolean playing;
     Thread gameThread = null;
+
+    private Boolean newGame;
 
     // For drawing
     private Paint paint;
@@ -165,6 +168,9 @@ public class GameView extends SurfaceView implements Runnable {
 
         background = BitmapFactory.decodeResource(context.getResources(), R.drawable.gameground);
         background = Bitmap.createScaledBitmap(background, screenX, screenY, true);
+
+        tutorial = BitmapFactory.decodeResource(context.getResources(), R.drawable.tutorial);
+        tutorial = Bitmap.createScaledBitmap(tutorial, screenX, screenY, true);
 
         powerup1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.curtain);
         powerup1 = Bitmap.createScaledBitmap(powerup1, dotSize, dotSize, true);
@@ -224,6 +230,8 @@ public class GameView extends SurfaceView implements Runnable {
 
         p1Turn = true;
         p2Turn = false;
+
+        newGame = true;
 
         mPlayer.setVolume(1,1);
 
@@ -427,6 +435,8 @@ public class GameView extends SurfaceView implements Runnable {
                 canvas.restore();
             }
 
+            if(newGame) canvas.drawBitmap(tutorial, 0, 0, paint);
+
             if (gameEnd == true) {
                 paint.setTextSize(300f);
 
@@ -491,6 +501,8 @@ public class GameView extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_DOWN: //fall through
             case MotionEvent.ACTION_POINTER_DOWN:
                 if(gameEnd!=true) {
+                    newGame = false;
+                    
                     //Player 1 Buttons
                     checkColorTapped(1, "blue", motionEvent);
                     checkColorTapped(1, "red", motionEvent);
